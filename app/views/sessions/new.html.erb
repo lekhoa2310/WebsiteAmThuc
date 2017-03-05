@@ -1,0 +1,24 @@
+
+
+<% if flash[:error]%>
+  <div class = "col-md-12 alert-danger alert">
+    <%= flash[:error]%>
+  </div>
+<% end%>
+
+
+<h1 class="text-center">Login</h1>
+<div class="col-md-4 col-sm-offset-4">
+<%= form_for :session, url: sign_path do |f| %>
+  <div class="form-group">
+    <label for="exampleInputEmail">Email</label>
+    <%= f.text_field :email, class: "form-control", placeholder: "Email "%>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword">Password</label>
+    <%= f.text_field :password, class: "form-control", placeholder: "Password"%>
+  </div>
+  <button>Sign in</button>
+   <!-- <a href="<%= new_user_path %>">Create a new acount ?</a> -->
+<% end %>
+</div>
