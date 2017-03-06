@@ -1,0 +1,63 @@
+
+<% if flash[:success] %>
+  <div class="col-md-12 alert alert-success">
+      <li><%= flash[:success]%></li>
+  </div>
+<%end%>
+
+<% if flash[:error] %>
+  <div class="col-md-12 alert  alert-danger">
+    <li><%= flash[:error]%></li>
+  </div>
+<%end%>
+
+<% if @user.errors.any? %>
+  <div class="col-md-12 alert alert-danger">
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message%></li>
+    <%end%>
+  </div>
+<% end %>
+
+<div class="container">
+  <div class="col-md-4 col-sm-offset-4">
+    <h1 class="text-center">Đăng ký</h1>
+    <%= form_for :user, url: users_path do |f| %>
+    <div class="form-group">
+      <label for="exampleInputName">Email</label>
+      <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Mật khẩu</label>
+      <%= f.text_field :password, class: "form-control", placeholder: "Mật khẩu"%>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Nhập lại mật khẩu</label>
+      <%= text_field_tag :password_confirmation,"", name: "user[password_confirmation]", class: "form-control", placeholder: "Nhập lại mật khẩu" %>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Tên</label>
+      <%= f.text_field :name, class: "form-control", placeholder: "Tên" %>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Địa chỉ</label>
+      <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ" %>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Số điện thoại</label>
+      <%= f.text_field :phone, class: "form-control", placeholder: "Số điện thoại" %>
+    </div>
+    <div class="form-group">
+      <label for="example-date-input" class="col-2 col-form-label">Ngày sinh</label>
+      <%= f.text_field :birthday, class: "form-control datepicker", placeholder: "Ngày sinh"%>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Giới tính:</label>
+      <%=radio_button("user", "gender", "1")%> Nam
+      <%=radio_button("user", "gender", "0")%>Nu
+    </div>
+    <div class="text-center"><button type="submit" class="btn btn-primary text-center" name="button">Đăng ký</button></div>
+
+    <%end%>
+  </div>
+</div>
