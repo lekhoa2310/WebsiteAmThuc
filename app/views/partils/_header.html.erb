@@ -13,10 +13,10 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  
+
       <ul class="nav navbar-nav navbar-right">
         <% if @current_user %>
-        <li><a><%= @current_user.name %></a></li>
+        <li><a href="<%= edit_user_path(@current_user.id) %>"> <%= @current_user.name %><span class="sr-only">(current)</span></a></li>
         <li class="active"><a href="<%= logout_path %>">Logout <span class="sr-only">(current)</span></a></li>
         <% else %>
         <li class="active"><a href="<%= login_path %>">Login <span class="sr-only">(current)</span></a></li>

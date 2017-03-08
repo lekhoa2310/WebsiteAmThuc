@@ -1,0 +1,72 @@
+<% if flash[:error] %>
+<div class="col-md-12 alert-danger alert">
+<li><%= flash[:error] %></li>
+</div>
+<% end %>
+<% if flash[:success] %>
+<div class="col-md-12 alert-success alert">
+<li><%= flash[:success]  %></li>
+</div>
+<% end %>
+
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+  <% @user.errors.full_messages.each do |message| %>
+  <li><%= message%></li>
+  <%end%>
+  </div>
+<%end%>
+
+<div class="container">
+  <div class="col-md-6">
+    <%= form_for @user, url: user_path(@user), method: "patch" do |f| %>
+      <div class="form-group">
+        <label for="exampleInputName2">Email</label>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName2">Họ tên</label>
+        <%= f.text_field :name, class: "form-control", placeholder: "Họ tên" %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2">Địa chỉ</label>
+        <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ" %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2">Số điện thoại</label>
+        <%= f.text_field :phone, class: "form-control", placeholder: "Số điện thoại" %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2">Ngày sinh</label>
+        <%= f.text_field :birthday, class: "form-control datepicker", placeholder: "Ngày sinh" %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">Giới tính:</label>
+        <%= f.radio_button :gender, '1', :checked => @male %> Nam
+        <%= f.radio_button :gender, '0', :checked => @female %> Nữ
+      </div>
+      <div class="">
+        <button type="submit" name="button" class="btn btn-primary col-md-12">Sửa</button>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="col-md-6 ">
+    <form name="change_password_form"  onsubmit="return validateForm_change_password()" action="<%= change_password_user_path(@current_user.id) %>" method="post">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Old password</label>
+        <input type="password" class="form-control" name="old_password" id="exampleInputEmail1" placeholder="Old password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">New password</label>
+        <input type="password" class="form-control" name="new_password" id="exampleInputPassword1" placeholder="New password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Confirm password</label>
+        <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Confirm password">
+      </div>
+      <button type="submit" class="btn btn-primary col-md-12">Change password</button>
+    </form>
+  </div>
+</div>
