@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   end
   def new
+
     redirect_to posts_path if @current_user
     @user = User.new
   end
@@ -43,10 +44,6 @@ class UsersController < ApplicationController
     def change_password
       @user = @current_user
       if Digest::MD5::hexdigest(params[:old_password]) == @user.password
-        if params[:new_password].length < 6
-          flash[:error] = "Password is too short (minimum is 6 characters)"
-          render :edit
-        else
           if params[:new_password] == params[:confirm_password]
             @user.update(password: params[:new_password])
             flash[:success] = "Your password was change successfully"
@@ -55,8 +52,6 @@ class UsersController < ApplicationController
             flash[:error] = "Confirm password  doesn't match New password"
             render :edit
           end
-        end
-
       else
         flash[:error] = "Old Password invalid"
         render :edit

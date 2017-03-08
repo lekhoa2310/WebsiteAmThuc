@@ -6,12 +6,12 @@ class User < ApplicationRecord
   before_save :hash_password
   validates :email, presence:true, uniqueness:true
   validates :password, presence:true, length: {minimum: 6}, confirmation: true
-
   validates :name, presence:true
   validates :address, presence:true
   validates :phone, presence:true
   validates :birthday, presence:true
 
+  belongs_to :district
 
   def hash_password
     self.password = Digest::MD5::hexdigest(self.password)

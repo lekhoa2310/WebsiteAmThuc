@@ -19,26 +19,27 @@
 
 <div class="container">
   <div class="col-md-6">
+    <fieldtest>
     <%= form_for @user, url: user_path(@user), method: "patch" do |f| %>
       <div class="form-group">
         <label for="exampleInputName2">Email</label>
-        <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email", required: "required" %>
       </div>
       <div class="form-group">
         <label for="exampleInputName2">Họ tên</label>
-        <%= f.text_field :name, class: "form-control", placeholder: "Họ tên" %>
+        <%= f.text_field :name, class: "form-control", placeholder: "Họ tên", required: "required"  %>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail2">Địa chỉ</label>
-        <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ" %>
+        <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ" , required: "required" %>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail2">Số điện thoại</label>
-        <%= f.text_field :phone, class: "form-control", placeholder: "Số điện thoại" %>
+        <%= f.text_field :phone, class: "form-control", placeholder: "Số điện thoại" , required: "required" %>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail2">Ngày sinh</label>
-        <%= f.text_field :birthday, class: "form-control datepicker", placeholder: "Ngày sinh" %>
+        <%= f.text_field :birthday, class: "form-control datepicker", placeholder: "Ngày sinh" , required: "required" %>
       </div>
       <div class="form-group">
         <label for="exampleInputName">Giới tính:</label>
@@ -49,24 +50,27 @@
         <button type="submit" name="button" class="btn btn-primary col-md-12">Sửa</button>
       </div>
     <% end %>
+    </fieldtest>
   </div>
-  
+
   <div class="col-md-6 ">
+    <fieldtest>
     <form name="change_password_form"  onsubmit="return validateForm_change_password()" action="<%= change_password_user_path(@current_user.id) %>" method="post">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-group">
         <label for="exampleInputEmail1">Old password</label>
-        <input type="password" class="form-control" name="old_password" id="exampleInputEmail1" placeholder="Old password">
+        <input type="password" class="form-control" name="old_password" id="exampleInputEmail1" placeholder="Old password" required  minlength="6">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">New password</label>
-        <input type="password" class="form-control" name="new_password" id="exampleInputPassword1" placeholder="New password">
+        <input type="password" class="form-control" name="new_password" id="exampleInputPassword1" placeholder="New password" required  minlength="6">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Confirm password</label>
-        <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Confirm password">
+        <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Confirm password" required  minlength="6">
       </div>
       <button type="submit" class="btn btn-primary col-md-12">Change password</button>
     </form>
+    </fieldtest>
   </div>
 </div>
