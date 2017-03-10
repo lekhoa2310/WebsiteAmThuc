@@ -2,8 +2,8 @@ class User < ApplicationRecord
   ROLE_ADMIN = 5
   ROLE_MANAGER = 1
   ROLE_USER = 0
+  before_create :hash_password
 
-  before_save :hash_password
   validates :email, presence:true, uniqueness:true
   validates :password, presence:true, length: {minimum: 6}, confirmation: true
   validates :name, presence:true
