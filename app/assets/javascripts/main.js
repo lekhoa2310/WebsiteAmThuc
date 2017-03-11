@@ -1,6 +1,19 @@
 
 $(document).ready(function () {
-   $("login_form").validate();
+   $("#login_form").validate();
+
+  //  $('form').on('submit', function(e) {
+  //    if(!$('[name="cities"]').valid()) {
+  //        e.preventDefault();
+  //    }
+  //   if(!$('[name="user[district_id]"]').valid()) {
+  //       e.preventDefault();
+  //   }
+  //   if(!$('[name="restaurant[district_id]"]').valid()) {
+  //       e.preventDefault();
+  //   }
+  // });
+
 
    $('.datepicker').datepicker({
      format: "yyyy-mm-dd"

@@ -21,8 +21,8 @@
         <%= f.text_field :name, class: "form-control", placeholder: "Họ tên", required: "required"  %>
       </div>
       <div class="form-group city">
-        <label for="" >City</label>
-        <select name="cities" class="form-control " id="city_select" >
+        <label for="" >Thành phố</label>
+        <select name="cities" class="form-control " id="city_select"  required ="requied" >
               <option value=""></option>
           <% @cities.each do |city| %>
             <% if city.id == @user.district.city.id%>
@@ -34,8 +34,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="">District</label>
-        <select name="user[district_id]" id="district_select" class="form-control">
+        <label for="">Quận( Huyện)</label>
+        <select name="user[district_id]" id="district_select" class="form-control"  required ="requied">
           <% @districts.each do |district|%>
             <%if district.id == @user.district.id%>
               <option class="render_ajax" value="<%= district.id %>" selected><%= district.name%></option>
@@ -63,7 +63,7 @@
         <%= f.radio_button :gender, '0', :checked => @female %> Nữ
       </div>
       <div class="">
-        <button type="submit" name="button" class="btn btn-primary col-md-12">Sửa</button>
+        <button type="submit" name="button" class="btn btn-primary col-md-12 margin_bottom_10">Sửa</button>
       </div>
     <% end %>
     </fieldtest>
@@ -85,7 +85,7 @@
         <label for="exampleInputPassword1">Xác nhận mật khẩu</label>
         <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Xác nhận mật khẩu" required  minlength="6">
       </div>
-      <button type="submit" class="btn btn-primary col-md-12">Change password</button>
+      <button type="submit" class="btn btn-primary col-md-12">Thay đổi/button>
     </form>
     </fieldtest>
   </div>

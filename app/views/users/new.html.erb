@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="container">
-  <h1 class="text-center">Đăng ký</h1>
+  <h1 class="text-center text-danger">Đăng ký</h1>
   <fieldtest>
   <%= form_for :user, url: users_path do |f| %>
     <div class="col-md-5 col-sm-offset-1">
@@ -36,8 +36,8 @@
   </div>
   <div class="col-md-5 col-sm-offset-1">
       <div class="form-group city">
-        <label for="" >City</label>
-        <select name="cities" class="form-control " id="city_select" >
+        <label for="" >Thành phố</label>
+        <select name="cities" class="form-control" id="city_select" required ="requied" >
               <option value=""></option>
           <% @cities.each do |city| %>
             <option value="<%= city.id %>"><%= city.name%></option>
@@ -45,8 +45,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="">District</label>
-        <select name="user[district_id]" id="district_select" class="form-control"></select>
+        <label for="">Quận( Huyện)</label>
+        <select name="user[district_id]" id="district_select" class="form-control" required ="requied"></select>
       </div>
       <div class="form-group">
         <label for="exampleInputName">Địa chỉ</label>
@@ -62,7 +62,7 @@
         <%= f.radio_button :gender, '1', :checked => true %> Nam
         <%= f.radio_button :gender, '0' %> Nữ
       </div>
-      <div class="text-center"><button type="submit" class="btn btn-primary text-center" name="button">Đăng ký</button></div>
+      <div class="text-center"><button type="submit" class="btn btn-primary text-center margin_bottom_10" name="button">Đăng ký</button></div>
     </div>
       <%end%>
       </fieldtest>

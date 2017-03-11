@@ -37,7 +37,7 @@
   <div class="col-md-5 col-sm-offset-1">
       <div class="form-group city">
         <label for="" >City</label>
-        <select name="cities" class="form-control " id="city_select" >
+        <select name="cities" class="form-control " id="city_select"   required ="requied">
               <option value=""></option>
           <% @cities.each do |city| %>
             <option value="<%= city.id %>"><%= city.name%></option>
@@ -46,7 +46,7 @@
       </div>
       <div class="form-group">
         <label for="">District</label>
-        <select name="user[district_id]" id="district_select" class="form-control"></select>
+        <select name="user[district_id]" id="district_select" class="form-control"  required ="requied"></select>
       </div>
       <div class="form-group">
         <label for="exampleInputName">Địa chỉ</label>

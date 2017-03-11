@@ -10,8 +10,10 @@ class User < ApplicationRecord
   validates :address, presence:true
   validates :phone, presence:true
   validates :birthday, presence:true
+  validates :district_id, presence:true
 
   belongs_to :district
+  has_many :restaurants
 
   def hash_password
     self.password = Digest::MD5::hexdigest(self.password)

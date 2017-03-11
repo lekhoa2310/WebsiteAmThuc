@@ -28,7 +28,7 @@
         <div class="navbar-header">
           <div class="logo">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#myPage">ẨM THỰC 3 MIỀN</a></li>
+              <li><a href="<%= admin_users_path%>">ẨM THỰC 3 MIỀN</a></li>
             </ul>
           <!-- <img src="images/favicon.ico" alt=""> -->
           </div>
@@ -36,14 +36,24 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#myPage">TRANG CHỦ</a></li>
+            <li><a href="<%= posts_path%>">TRANG CHỦ</a></li>
             <li><a href="#about-us">CỬA HÀNG</a></li>
             <li><a href="#soccer-system">MÓN ĂN</a></li>
-            <li><a href="matches.html">TÌM KIẾM</a></li>
-            <li><a href="#soccer-picture">QUẢN LÝ CỬA HÀNG</a></li>
-            <li><a href="#contact">QUẢN LÝ BÀI VIẾT</a></li>
+            <li><a href="#">TÌM KIẾM</a></li>
+            <li><a href="<%= restaurants_path%>">QUẢN LÝ CỬA HÀNG</a></li>
+            <li><a href="#">QUẢN LÝ BÀI VIẾT</a></li>
             <% if @current_user %>
-            <li><a href="<%= edit_user_path(@current_user.id) %>"> <%= @current_user.name.upcase %></a></li>
+            <li  role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <%= @current_user.name.upcase %> <span class="caret"></a>
+              <ul class="dropdown-menu nav navbar-nav navbar-right">
+                <li> <a href="<%= edit_user_path(@current_user.id) %>">QUẢN LÝ THÔNG TIN CÁ NHÂN</a> </li>
+                <li> <a href="<%= restaurants_path%>">QUẢN LÝ CỬA HÀNG</a> </li>
+                <%if @current_user.is_admin?%>
+                  <li><a href="<%= admin_users_path %>">QUẢN LÝ CÁC TÀI KHOẢN</a></li>
+                <%end%>
+              </ul>
+            </li>
+
             <li class="active"><a href="<%= logout_path %>">ĐĂNG XUẤT <span class="sr-only">(current)</span></a></li>
             <% else %>
             <li class="active"><a href="<%= login_path %>">ĐĂNG NHẬP<span class="sr-only">(current)</span></a></li>

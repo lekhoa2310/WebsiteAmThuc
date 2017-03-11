@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts
-
+  resources :restaurants
   resources :users do
     member do
       post :change_password

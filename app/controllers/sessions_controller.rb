@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
         redirect_to posts_path
       end
     else
-      flash[:error] = "Email or password invalid."
+      # flash[:error] = "Email or password invalid."
+        flash[:error] = "Email hoặc mật khẩu không chính xác."
       render :new
     end
   end

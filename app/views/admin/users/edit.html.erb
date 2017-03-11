@@ -21,8 +21,8 @@
         <%= f.text_field :name, class: "form-control", placeholder: "Họ tên", required: "required"  %>
       </div>
       <div class="form-group city">
-        <label for="" >City</label>
-        <select name="cities" class="form-control " id="city_select" >
+        <label for="" >Thành phố</label>
+        <select name="cities" class="form-control " id="city_select"   required ="requied">
               <option value=""></option>
           <% @cities.each do |city| %>
             <% if city.id == @user.district.city.id%>
@@ -34,8 +34,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="">District</label>
-        <select name="user[district_id]" id="district_select" class="form-control">
+        <label for="">Quận( Huyện)</label>
+        <select name="user[district_id]" id="district_select" class="form-control"  required ="requied">
           <% @districts.each do |district|%>
             <%if district.id == @user.district.id%>
               <option class="render_ajax" value="<%= district.id %>" selected><%= district.name%></option>

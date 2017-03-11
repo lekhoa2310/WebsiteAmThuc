@@ -12,6 +12,7 @@
     <th>Sinh nhật</th>
     <th>Giới tính</th>
     <th>Chức vụ</th>
+    <th>Ngày tạo</th>
     <th>Chức năng</th>
   </tr>
   <tr class="box-user">
@@ -23,6 +24,8 @@
     <td><%= @user.birthday %></td>
     <td><%= @gender %></td>
     <td><%= @role%></td>
+    <td><%= @user.created_at%></td>
+
     <td>
       <a herf="<%= admin_user_path(@user)%>" data-method="delete" data-target="<%= @user.id %>"  class="btn btn-danger delete-user" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
     </td>
