@@ -3,13 +3,25 @@
   <head>
     <title>Website Ẩm thực</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
       <%= render "partils/header" %>
+      <% if flash[:error] %>
+      <div class="col-md-12 alert-danger alert">
+      <li><%= flash[:error] %></li>
+      </div>
+      <% end %>
+      <% if flash[:success] %>
+      <div class="col-md-12 alert-success alert">
+      <li><%= flash[:success]  %></li>
+      </div>
+      <% end %>
+
     <%= yield %>
+
+          <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
+
 </html>

@@ -9,17 +9,14 @@ class UsersController < ApplicationController
     @cities= City.all
   end
 
-  def get_all_districts
-    @districts = District.all
-    render :json => {:success => true , :data => @districts}
-  end
 
   def create
     @cities= City.all
     @user = User.new user_params
     # @user.gender = 1 if @user.gender.nil?
       if  @user.save
-        flash[:success] = "Registration successfully"
+        # flash[:success] = "Registration successfully"
+        flash[:success] = "Đăng ký thành công"
         redirect_to login_path
       else
         render :new
@@ -44,7 +41,8 @@ class UsersController < ApplicationController
       @user = User.find_by_id params[:id]
       @user.assign_attributes(user_update_params)
       if @user.update_attributes(user_update_params)
-        flash[:success] = "Update profile successfully"
+        # flash[:success] = "Update profile successfully"
+        flash[:success] = "Cập nhật thông tin cá nhân thành công"
         redirect_to posts_path
       else
         render :edit
@@ -58,38 +56,22 @@ class UsersController < ApplicationController
       @districts = @city.districts
       if Digest::MD5::hexdigest(params[:old_password]) == @user.password
           if params[:new_password] == params[:confirm_password]
-            @user.update(password: params[:new_password])
-            flash[:success] = "Your password was change successfully"
+            @user.update(password: Digest::MD5::hexdigest(params[:new_password]))
+            # flash[:success] = "Your password was change successfully"
+            flash[:success] = "Mật khẩu của bạn đã được thay đổi thành công"
             session[:user_id]=nil
             redirect_to login_path
           else
-            flash[:error] = "Confirm password  doesn't match New password"
+            # flash[:error] = "Confirm password  doesn't match New password"
+            flash[:error] = "Mật khẩu mới và xác nhận mật khẩu  không trùng khớp"
             render :edit
           end
       else
-        flash[:error] = "Old Password invalid"
+        # flash[:error] = "Old Password invalid"
+        flash[:error] = "Mật khẩu sai"
         render :edit
       end
     end
-    # def change_password
-    #   @user= User.find(params[:id])
-    #   if Digest::MD5::hexdigest(params[:old_password]) == @user.password
-    #     if params[:new_password] == params[:confirm_password]
-    #       @user.update(password: params[:new_password])
-    #       flash[:success] = "Đổi mật khẩu thành công!"
-    #     end
-    #   else
-    #     flash[:error_change] = "Mật khẩu cũ không đúng!"
-    #   end
-    #   redirect_to edit_user_path
-    # end
-
-    # def destroy
-    #   @user = User.find_by_id params[:id]
-    #   @user.destroy
-    #   redirect_to users_path
-    # end
-
 
   private
   def user_params

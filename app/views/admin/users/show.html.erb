@@ -1,0 +1,31 @@
+
+<div class="container">
+<h1 class="text-danger text-center margin_bottom_10">Thông tin <%= @role%> <%= @user.name%></h1>
+<a href="<%=admin_users_path%>" class="btn btn-primary margin_bottom_10 ">Quay lại</a>
+<table class="table table-hover table-bordered" >
+  <tr style="background: pink">
+    <th>ID</th>
+    <th>Email</th>
+    <th>Tên</th>
+    <th>Địa chỉ</th>
+    <th>Số điện thoại</th>
+    <th>Sinh nhật</th>
+    <th>Giới tính</th>
+    <th>Chức vụ</th>
+    <th>Chức năng</th>
+  </tr>
+  <tr class="box-user">
+    <td><%= @user.id %></td>
+    <td><%= @user.email %></td>
+    <td><%= @user.name %></td>
+    <td><%= @user.address %>, <%= @district %>, <%= @city %></td>
+    <td><%= @user.phone %></td>
+    <td><%= @user.birthday %></td>
+    <td><%= @gender %></td>
+    <td><%= @role%></td>
+    <td>
+      <a herf="<%= admin_user_path(@user)%>" data-method="delete" data-target="<%= @user.id %>"  class="btn btn-danger delete-user" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+    </td>
+  </tr>
+</table>
+</div>

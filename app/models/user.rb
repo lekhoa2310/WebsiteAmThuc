@@ -22,4 +22,13 @@ class User < ApplicationRecord
     return true if password_hash == self.password
     return false
   end
+
+  def is_admin?
+    return true if self.role == ROLE_ADMIN
+    return false
+  end
+
+  def is_manager?
+    return true if self.role == ROLE_MANAGER
+  end
 end

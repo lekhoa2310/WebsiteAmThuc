@@ -5,9 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# phân trang
+gem 'will_paginate', '~> 3.1.5'
 
+gem 'will_paginate-bootstrap'
+# kiểm tra dữ liệu form ở view
 gem 'jquery-validation-rails'
-
+# chọn kiểu ngày kinh
 gem 'bootstrap-datepicker-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'

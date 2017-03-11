@@ -1,14 +1,25 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to posts_path if @current_user
+    if @current_user
+      @user = User.find_by id: @current_user.id
+      if @user.is_admin?
+        redirect_to admin_users_path
+      else
+        redirect_to posts_path
+     end
+   end
   end
 
   def create
     user = User.find_by email:params[:session][:email]
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      redirect_to posts_path
+      if user.is_admin?
+        redirect_to admin_users_path
+      else
+        redirect_to posts_path
+      end
     else
       flash[:error] = "Email or password invalid."
       render :new
