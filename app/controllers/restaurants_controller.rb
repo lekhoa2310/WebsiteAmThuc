@@ -4,6 +4,7 @@ class RestaurantsController < ApplicationController
     @page = 1
     @restaurants = @current_user.restaurants.paginate(:page => params[:page], :per_page => 3)
     @page =  params[:page].to_i if params[:page].present?
+
   end
 
   def new
@@ -47,7 +48,7 @@ class RestaurantsController < ApplicationController
     end
   end
   def show
-
+    @restaurant = Restaurant.find_by_id params[:id]
   end
 
   def destroy
