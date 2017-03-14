@@ -1,0 +1,30 @@
+
+  <div class="container">
+
+    <div class="btn-group">
+      <a class="btn btn-info" href="">Quản lý món ăn</a>
+      <a href="#" class="btn btn-default">Quản lý nhân viên</a>
+      <a href="#" class="btn btn-default">Quản lý đặt hàng</a>
+    </div>
+    <h1 class="text-center text-danger margin_bottom_50 ">Danh sách món ăn <%=@restaurant.name %></h1>
+    <a href="<%=new_dashboard_restaurant_food_path%>" class="btn btn-primary">Thêm món ăn</a>
+
+    <table class="table table-hover table-bordered" >
+      <tr style="background: pink">
+        <th>STT</th>
+        <th>Tên món ăn</th>
+        <th>Giá</th>
+      </tr>
+      <% @foods.each_with_index do |food,index| %>
+      <tr class="box-restaurants">
+        <td><%= index + 1 + (@page-1)*3  %></td>
+        <td><%= food.name %></td>
+        <td><%= food.price %></td>
+      </tr>
+
+      <% end %>
+    </table>
+    <div class="pagination pull-right">
+      <%= will_paginate @foods , renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>

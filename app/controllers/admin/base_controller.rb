@@ -2,10 +2,14 @@ class Admin::BaseController < ApplicationController
   before_action :check_admin
 
   def check_admin
-    if @current_user.is_admin?
-
+    if @current_user.nil?
+        redirect_to posts_path
     else
-      redirect_to posts_path
+      if @current_user.is_admin?
+
+      else
+        redirect_to posts_path
+      end
     end
   end
 end

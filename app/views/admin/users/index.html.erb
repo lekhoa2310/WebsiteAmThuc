@@ -22,7 +22,7 @@
     <td><%= user.email %></td>
     <td><%= user.name %></td>
     <td><%= user.phone %></td>
-    <td><%= user.birthday %></td>
+    <td><%= user.birthday.strftime("%d/%m/%Y") %></td>
     <td><%= user.address %>, <%= user.district.name %>, <%=user.district.city.name%></td>
     <td>
       <a href="<%= admin_user_path(user)%>" class="btn btn-primary">Xem</a>

@@ -1,0 +1,40 @@
+
+<% if @food.errors.any? %>
+  <div class="col-md-12 alert alert-danger">
+    <% @food.errors.full_messages.each do |message| %>
+      <li><%= message%></li>
+    <%end%>
+  </div>
+<% end %>
+
+<div class="container">
+  <h1 class="text-center text-danger">Thêm mới thực phẩm</h1>
+  <fieldtest>
+  <%= form_for :food, url: dashboard_restaurant_foods_path, method: "post" ,  html: { multipart: true }  do |f| %>
+    <div class="col-md-4 col-sm-offset-4">
+      <div class="form-group ">
+        <label for="" >Loại thực phẩm</label>
+        <select name="food[kinds]"  class="form-control " required ="requied" >
+            <option value="eat">Đồ ăn</option>
+            <option value="drink">Đồ uống</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">Tên món</label>
+        <%= f.text_field :name, class: "form-control", placeholder: "Tên" , required: "required"%>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">giá</label>
+        <%= f.text_field :price, class: "form-control", placeholder: "Số điện thoại", required: "required" %>
+      </div>
+
+      <!-- <div class="fotrm-group">
+        <%= f.label "Ảnh cửa hàng"%>
+        <%= f.file_field :image , class: "form-control" %>
+      </div> -->
+
+      <div class=""><button type="submit" class="btn btn-primary text-center" name="button">Thêm</button></div>
+    </div>
+      <%end%>
+      </fieldtest>
+  </div>

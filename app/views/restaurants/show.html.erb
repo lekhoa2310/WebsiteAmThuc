@@ -1,10 +1,26 @@
-<h3>My Google Maps Demo</h3>
-     <div id="map"></div>
+<h1 class="text-center text-danger margin_bottom_20 "><%=@restaurant.name %></h1>
+  <div class="container">
+    <div class="col-md-6">
+      <%= image_tag @restaurant.image.url(:medium), class: "picture_center" %>
+      <h3 class="text-center">Số điện thoại: <%=@restaurant.phone%></h3>
+      <h3 class="text-center">Địa chỉ: <%=@restaurant.address%>, <%=@restaurant.district.name%>, <%=@restaurant.district.city.name%></h3>
+
+    </div>
+    <div class="col-md-6">
+      <div id="map"></div>
+    </div>
+
+  </div>
+  <div class="container">
+    <h2 class="text-primary">Danh sách món ăn</n></h2>
+
+  </div>
+
      <script type="text/javascript">
        function initMap() {
          var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
-        center: {lat: 16.0744633, lng: 108.1518328}
+        // center: {lat: 16.0744633, lng: 108.1518328 }
          });
          var geocoder = new google.maps.Geocoder();
          geocodeAddress(geocoder, map);
@@ -18,9 +34,10 @@
                  map: resultsMap,
                  position: results[0].geometry.location
                });
-             } else {
-               alert('Geocode was not successful for the following reason: ' + status);
              }
+            //   else {
+            //    alert('Geocode was not successful for the following reason: ' + status);
+            //  }
            });
          }
      </script>

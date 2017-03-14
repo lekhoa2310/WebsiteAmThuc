@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  namespace :dashboard do
+    resources :restaurants do
+      resources :foods 
+    end
+  end
+
   resources :posts
   resources :restaurants
   resources :users do

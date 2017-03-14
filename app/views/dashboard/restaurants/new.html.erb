@@ -10,7 +10,7 @@
 <div class="container">
   <h1 class="text-center text-danger">Đăng ký cửa hàng</h1>
   <fieldtest>
-  <%= form_for :restaurant, url: restaurants_path do |f| %>
+  <%= form_for :restaurant, url: dashboard_restaurants_path, method: "post" ,  html: { multipart: true }  do |f| %>
     <div class="col-md-4 col-sm-offset-4">
       <div class="form-group">
         <label for="exampleInputName">Tên cửa hàng</label>
@@ -22,7 +22,7 @@
       </div>
       <div class="form-group city">
         <label for="" >City</label>
-        <select name="cities"  class="form-control " id="city_select"  required ="requied" > 
+        <select name="cities"  class="form-control " id="city_select"  required ="requied" >
               <option value=""></option>
           <% @cities.each do |city| %>
             <option value="<%= city.id %>"><%= city.name%></option>
@@ -37,6 +37,11 @@
         <label for="exampleInputName">Địa chỉ</label>
         <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ", required: "required"%>
       </div>
+      <div class="fotrm-group">
+        <%= f.label "Ảnh cửa hàng"%>
+        <%= f.file_field :image , class: "form-control" %>
+      </div>
+
       <div class="text-center"><button type="submit" class="btn btn-primary text-center" name="button">Đăng ký</button></div>
     </div>
       <%end%>

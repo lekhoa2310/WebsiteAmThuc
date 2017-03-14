@@ -10,7 +10,7 @@
   <h1 class="text-center text-danger">Chỉnh sữa cửa hàng</h1>
   <div class="col-md-4 col-sm-offset-4">
     <fieldtest>
-    <%= form_for @restaurant , url: restaurant_path(@restaurant), method: "patch" do |f| %>
+    <%= form_for @restaurant , url: dashboard_restaurant_path(@restaurant), method: "patch" do |f| %>
       <div class="form-group">
         <label for="exampleInputName2">Tên cửa hàng</label>
         <%= f.text_field :name,class: "form-control", placeholder: "Tên cửa hàng", required: "requied" %>
@@ -48,6 +48,10 @@
       <div class="form-group">
         <label for="exampleInputName">Tên đường</label>
         <%= f.text_field :address, class: "form-control", placeholder: "Tên đường", required: "required"%>
+      </div>
+      <div class="fotrm-group">
+        <%= f.label "Ảnh cửa hàng"%>
+        <%= f.file_field :image , class: "form-control" %>
       </div>
       <div class="">
         <button type="submit" name="button" class="btn btn-primary ">Sửa</button>
