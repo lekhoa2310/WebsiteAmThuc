@@ -37,12 +37,13 @@
         <label for="exampleInputName">Địa chỉ</label>
         <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ", required: "required"%>
       </div>
-      <div class="fotrm-group">
+      <div class="fotrm-group margin_bottom_10">
         <%= f.label "Ảnh cửa hàng"%>
         <%= f.file_field :image , class: "form-control" %>
       </div>
 
-      <div class="text-center"><button type="submit" class="btn btn-primary text-center" name="button">Đăng ký</button></div>
+      <div class="text-center"><button type="submit" class="btn btn-primary text-center" name="button">Đăng ký</button><a class=" text-center btn btn-danger margin_left_10" href="<%= dashboard_restaurants_path%>">Hủy</a></div>
+
     </div>
       <%end%>
       </fieldtest>

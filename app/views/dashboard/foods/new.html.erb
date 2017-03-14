@@ -14,7 +14,7 @@
     <div class="col-md-4 col-sm-offset-4">
       <div class="form-group ">
         <label for="" >Loại thực phẩm</label>
-        <select name="food[kinds]"  class="form-control " required ="requied" >
+        <select name="food[kind]"  class="form-control " required ="requied" >
             <option value="eat">Đồ ăn</option>
             <option value="drink">Đồ uống</option>
         </select>
@@ -28,12 +28,15 @@
         <%= f.text_field :price, class: "form-control", placeholder: "Số điện thoại", required: "required" %>
       </div>
 
-      <!-- <div class="fotrm-group">
-        <%= f.label "Ảnh cửa hàng"%>
+      <div class="fotrm-group margin_bottom_10">
+        <%= f.label "Ảnh đồ ăn"%>
         <%= f.file_field :image , class: "form-control" %>
-      </div> -->
+      </div>
 
-      <div class=""><button type="submit" class="btn btn-primary text-center" name="button">Thêm</button></div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary text-center" name="button">Thêm</button>
+        <a class=" text-center btn btn-danger margin_left_10" href="<%= dashboard_restaurant_foods_path%>">Hủy</a>
+      </div>
     </div>
       <%end%>
       </fieldtest>

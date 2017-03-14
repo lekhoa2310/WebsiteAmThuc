@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :admin do
-    # get '/dashboard/managers' => 'dashboard#managers'
-    # get '/dashboard/users' => 'dashboard#users'
+    get 'restaurants/store_pendding', to: 'restaurants#store_pendding'
+    resources :restaurants
     resources :users
   end
 
   namespace :dashboard do
+    get 'restaurants/store_pendding', to: 'restaurants#store_pendding'
     resources :restaurants do
-      resources :foods 
+      resources :foods
     end
+
   end
 
   resources :posts
