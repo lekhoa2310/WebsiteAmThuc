@@ -2,6 +2,7 @@ class Restaurant < ApplicationRecord
   belongs_to :user
   belongs_to :district
   has_many :foods
+  has_many :staffs
 
   validates :name, presence: true
   validates :address, presence: true

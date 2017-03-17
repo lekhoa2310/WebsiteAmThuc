@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'restaurants/store_pendding', to: 'restaurants#store_pendding'
     resources :restaurants do
       resources :foods
+      resources :staffs
     end
 
   end

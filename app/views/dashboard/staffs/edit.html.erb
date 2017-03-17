@@ -1,0 +1,57 @@
+
+
+<% if @staff.errors.any? %>
+  <div class="col-md-12 alert alert-danger">
+    <% @staff.errors.full_messages.each do |message| %>
+      <li><%= message%></li>
+    <%end%>
+  </div>
+<% end %>
+
+<div class="container">
+  <h1 class="text-center text-danger">Sửa nhân viên</h1>
+  <fieldtest>
+  <%= form_for :staff, url: dashboard_restaurant_staff_path , method: "patch" do |f| %>
+    <div class="col-md-4 col-sm-offset-4">
+      <div class="form-group">
+        <label for="">Chức vụ</label>
+        <select class="form-control" name="staff[kind]">
+          <option value="Quản lý">Quản lý</option>
+          <option value="Kế toán">Kế toán</option>
+          <option value="Lễ tân">Lễ tân</option>
+          <option value="Đầu bếp">Đầu bếp</option>
+          <option value="Bồi bàn">Bồi bàn</option>
+          <option value="Bảo vệ">Bảo vệ</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">Tên</label>
+        <%= f.text_field :name, class: "form-control", placeholder: "Tên" , required: "required"%>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">Lương</label>
+        <%= f.text_field :salary, class: "form-control", placeholder: "Lương" , required: "required"%>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">Số điện thoại</label>
+        <%= f.text_field :phone, class: "form-control", placeholder: "Số điện thoại", required: "required" %>
+      </div>
+
+      <div class="form-group">
+        <label for="example-date-input" class="col-2 col-form-label">Ngày sinh</label>
+        <%= f.text_field :birthday, class: "form-control datepicker", placeholder: "Ngày sinh", required: "required"%>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName">Giới tính:</label>
+        <%= f.radio_button :gender, '1', :checked => @male %> Nam
+        <%= f.radio_button :gender, '0',:checked => @female %> Nữ
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary text-center " name="button">Sửa</button>
+        <a href="<%= dashboard_restaurant_staffs_path%>" class="btn btn-danger magin_left_10">Hủy</a>
+      </div>
+
+      <%end%>
+      </fieldtest>
+    </div>
+  </div>

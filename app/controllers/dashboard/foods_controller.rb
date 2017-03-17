@@ -1,8 +1,9 @@
 class Dashboard::FoodsController < Dashboard::BaseController
 Paperclip::Attachment.default_options[:default_url] = "/images/foods/default_image.png"
+
+before_action :find_restaurant
   def index
     @page = 1
-    @restaurant = Restaurant.find_by_id params[:restaurant_id ]
     @foods_eat = @restaurant.foods.where(kind: "eat").paginate(:page => params[:page], :per_page => 3)
     @foods_drink = @restaurant.foods.where(kind: "drink").paginate(:page => params[:page], :per_page => 3)
     @page =  params[:page].to_i if params[:page].present?
@@ -16,7 +17,6 @@ Paperclip::Attachment.default_options[:default_url] = "/images/foods/default_ima
   end
 
   def create
-    @restaurant = Restaurant.find_by_id params[:restaurant_id ]
     @food = @restaurant.foods.new food_params
     if @food.save
       flash[:success] = "Thêm thực phẩm thành công"
@@ -28,7 +28,6 @@ Paperclip::Attachment.default_options[:default_url] = "/images/foods/default_ima
   end
 
   def edit
-    @restaurant = Restaurant.find_by_id params[:restaurant_id ]
     @food = Food.find_by_id params[:id ]
     @eat = ""
     @drink = ""
@@ -43,7 +42,7 @@ Paperclip::Attachment.default_options[:default_url] = "/images/foods/default_ima
       flash[:success] = "Chỉnh sửa đồ ăn thành công"
       redirect_to dashboard_restaurant_foods_path
     else
-      flash[:success] = "Chỉnh sửa đồ ăn thất bại"
+      flash[:error] = "Chỉnh sửa đồ ăn thất bại"
       render :edit
     end
   end
@@ -64,5 +63,8 @@ Paperclip::Attachment.default_options[:default_url] = "/images/foods/default_ima
   def food_params
     params.require(:food).permit(:kind, :name, :price, :image )
 
+  end
+  def find_restaurant
+    @restaurant = Restaurant.find_by_id params[:restaurant_id]
   end
 end
