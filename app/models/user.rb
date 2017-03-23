@@ -14,6 +14,9 @@ class User < ApplicationRecord
 
   belongs_to :district
   has_many :restaurants
+  has_many :posts
+  has_many :comments, dependent: :delete_all
+  has_many :likes, dependent: :delete_all
 
   def hash_password
     self.password = Digest::MD5::hexdigest(self.password)

@@ -22,5 +22,22 @@ $(document).ready(function () {
      });
    });
 
+   $('.post-like').click(function(event){
+     var sefl = $(this);
+     $.ajax({
+       url: $(this).attr("data-target"),
+       type: "post",
+       success: function(res){
+         console.log(res);
+         sefl.parents('.post-item').find('.view-like').html(res.data.likes);
+         if(res.data.isLike == false)
+          sefl.html("Thích");
+         else
+          sefl.html("Không thích");
+       }
+     });
+   });
+
+
 
 });

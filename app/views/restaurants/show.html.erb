@@ -13,7 +13,22 @@
   </div>
   <div class="container">
     <h2 class="text-primary">Danh sách món ăn</n></h2>
-
+    <% @foods.each do |food|%>
+    <div class="col-md-6   box_foods_index">
+      <%= image_tag food.image.url(:medium), class: "picture_center" %>
+      <h3 class="text-center text-danger"><%=food.name%></h3>
+      <h4 class="text-center">Giá: <%=food.price%></h4>
+      <div class="text-center">
+        <a href="" class="btn btn-warning">Thêm vào giỏ</a>
+        <a href="" class="text-center btn btn-primary">Đặt hàng</a>
+      </div>
+    </div>
+    <%end%>
+    <div class="container col-md-12">
+      <div class="pagination pull-right">
+        <%= will_paginate @foods , renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
   </div>
 
      <script type="text/javascript">

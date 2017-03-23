@@ -1,2 +1,41 @@
-<%= flash[:alert]%>
-Trang chu
+
+<h1 class="text-center text-danger">Danh sách các bài post</h1>
+<div class="container">
+  <div class="col-md-8 col-sm-offset-2">
+    <a href="<%=new_post_path%>" class="btn btn-info">Đăng bài</a>
+    <% @posts.each do |post| %>
+      <div class="post-item">
+      <% if @current_user %>
+        <%if @current_user.id == post.user_id%>
+          <div class="dropdown option">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Tùy chọn <span class="caret">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#">Xem</a></li>
+            <li><a class="dropdown-item" href="<%= edit_post_path(post)%>">Sửa</a></li>
+            <li><a class="dropdown-item " href="<%= post_path(post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
+            </div>
+          </div>
+        <%end%>
+      <%end%>
+      <h3><%= post.user.name%>: <a href="<%= post_path(post)%>"> <%= post.title %></a></h3>
+      <div>
+        <%= post.content %>
+      </div>
+      <p class="view-like">
+        <%= post.likes.where(isLike: true).count %>
+      </p>
+      <%if @current_user%>
+        <%like = post.likes.where(user_id: @current_user.id).first%>
+        <button data-target="<%= like_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
+
+      <%else%>
+        <a href="<%=login_path %>"   data-confirm="Bạn chắc chắn muốn xóa?" class="btn btn-primary return_login">Thích</a>
+      <%end%>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

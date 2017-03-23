@@ -13,6 +13,8 @@
 .picture_center{
   display: block;
   margin: 0 auto;
+  width: 320px;
+  height: 220px;
 }
 #map {
   width: 500px;
@@ -22,9 +24,22 @@
 .box_restaurant_index{
   min-height: 310px;
 }
+.box_foods_index{
+  padding-top: 10px;
+  min-height: 340px;
+}
 .picture_small{
   min-height: 50px;
 }
 /*body {
   background-color: #f5f5f5;
 }*/
+
+.post-item{
+   position: relative;
+}
+.option{
+  position: absolute;
+  right: 0px;
+  top:0px;
+}

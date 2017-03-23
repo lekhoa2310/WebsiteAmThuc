@@ -1,0 +1,50 @@
+
+<div class="container">
+  <div class="col-md-8 col-sm-offset-2">
+    <h3 class="text-danger"><%= @post.user.name%>: <%= @post.title %></h3>
+    <div class="post-item">
+    <% if @current_user %>
+    <%if @current_user.id == @post.user_id%>
+      <div class="dropdown option">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Tùy chọn <span class="caret">
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#">Xem</a></li>
+        <li><a class="dropdown-item" href="<%= edit_post_path(post)%>">Sửa</a></li>
+        <li><a class="dropdown-item " href="<%= post_path(post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
+        </div>
+      </div>
+      <%end%>
+    <%end%>
+
+    <div>
+      <%= @post.content %>
+    </div>
+    <%= form_for Comment.new, remote: true do |f| %>
+
+      <%= f.text_field :content , class: "form-control"%>
+      <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
+      <button type="button"  class="btn btn-primary post-comment" >Comment</button>
+      <% end %>
+    <ul class="list-comment">
+      <% @post.comments.each do |comment| %>
+      <div class="comment-item">
+    <% like = comment.likes.where(user_id: @current_user.id).first %>
+
+      <li class="box-comment">
+        <%= comment.user.name %>   <%= comment.content %>
+        <button data-target="<%= comment.id %>" class="btn btn-danger delete-comment">Delete</button>
+        <p class="view-like">
+        <%= comment.likes.where(isLike: true).count %>
+        </p>
+        <button data-target="<%= comment.id %>" class="btn btn-primary comment-like"><%= like.try(:isLike) ? "Dislike" : "Like"%></button>
+
+      </li>
+      </div>
+      <% end%>
+    </ul>
+
+    </div>
+  </div>
+</div>

@@ -15,12 +15,15 @@ Rails.application.routes.draw do
 
   end
 
-  resources :posts
+  resources :posts do
+    member do
+      post :like
+    end
+  end
   resources :restaurants
   resources :users do
     member do
       post :change_password
-
     end
     end
 
