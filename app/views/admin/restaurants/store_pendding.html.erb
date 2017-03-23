@@ -22,7 +22,7 @@
       <td><%= restaurant.name %></td>
       <td><%= restaurant.phone %></td>
       <td><%= restaurant.address %>, <%= restaurant.district.name %>, <%=restaurant.district.city.name%></td>
-      <td><%= restaurant.created_at %></td>
+      <td><%= restaurant.created_at.strftime("%H:%M %d/%m/%Y") %></td>
       <td>
         <a href="<%= admin_restaurant_path(restaurant) %>"  class="btn btn-primary">Xem</a>
         <a href="<%= admin_restaurant_path(restaurant) %> " data-method ="patch"  class="btn btn-warning">Duyệt</a>

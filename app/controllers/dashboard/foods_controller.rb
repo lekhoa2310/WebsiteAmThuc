@@ -1,5 +1,5 @@
 class Dashboard::FoodsController < Dashboard::BaseController
-Paperclip::Attachment.default_options[:default_url] = "/images/foods/default_image.png"
+
 
 before_action :find_restaurant
   def index

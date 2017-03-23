@@ -16,6 +16,11 @@
   width: 320px;
   height: 220px;
 }
+.picture_small{
+  display: block;
+  margin: 0 auto;
+  height: 50px;
+}
 #map {
   width: 500px;
   height: 400px;

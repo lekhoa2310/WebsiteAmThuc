@@ -32,7 +32,7 @@
         <td><%= staff.kind %></td>
         <td><%= staff.salary %></td>
         <td><%= staff.phone %></td>
-        <td><%= staff.birthday %></td>
+        <td><%= staff.birthday.strftime("%d/%m/%Y") %></td>
         <td>
           <%if staff.gender == true %>
             Nam
@@ -40,7 +40,7 @@
             Nữ
           <%end%>
         </td>
-        <td><%= staff.created_at %></td>
+        <td><%= staff.created_at.strftime("%H:%M %d/%m/%Y") %></td>
         <td>
           <a href="<%= edit_dashboard_restaurant_staff_path(staff.restaurant.id, staff.id ) %>" class="btn btn-warning">Sửa</a>
           <a href ="<%= dashboard_restaurant_staff_path(staff.restaurant.id, staff.id) %>" data-method="delete"  class="btn btn-danger delete-food" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
