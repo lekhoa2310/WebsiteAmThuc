@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="col-md-8 col-sm-offset-2">
-    <h3 class="text-danger"><%= @post.user.name%>: <%= @post.title %></h3>
+
     <div class="post-item">
     <% if @current_user %>
     <%if @current_user.id == @post.user_id%>
@@ -11,39 +11,67 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="#">Xem</a></li>
-        <li><a class="dropdown-item" href="<%= edit_post_path(post)%>">Sửa</a></li>
-        <li><a class="dropdown-item " href="<%= post_path(post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
+        <li><a class="dropdown-item" href="<%= edit_post_path(@post)%>">Sửa</a></li>
+        <li><a class="dropdown-item " href="<%= post_path(@post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
         </div>
       </div>
       <%end%>
     <%end%>
-
+<h3 class="text-danger"><span class="text-primary <text-strong></text-strong>"><%= @post.user.name%>:</span> <%= @post.title %></h3>
     <div>
       <%= @post.content %>
     </div>
-    <%= form_for Comment.new, remote: true do |f| %>
+    <p class="view-like">
+      <%= @post.likes.where(isLike: true).count %>
+    </p>
+    <div class="margin_bottom_10">
+      <%if @current_user%>
+        <%like = @post.likes.where(user_id: @current_user.id).first%>
+        <button data-target="<%= like_post_path(@post.id) %>"  data-method ="post" class="btn btn-primary post-like margin_bottom_20"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
 
-      <%= f.text_field :content , class: "form-control"%>
-      <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
-      <button type="button"  class="btn btn-primary post-comment" >Comment</button>
+      <%else%>
+        <button class="btn btn-primary return-login">Thích</button>
+      <%end%>
+    </div>
+
+
+    <div class="col-md-6 margin_bottom_20">
+
+      <%= form_for Comment.new, remote: true do |f| %>
+        <fieldtest>
+        <%= f.text_field :content , class: "form-control margin_bottom_10 " , required: "required"%>
+        <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
+        <%if @current_user%>
+          <button type="button"  class="btn btn-primary post-comment" >Bình luận</button>
+        <%else%>
+          <button type="button"  class="btn btn-primary return-login" >Bình luận</button>
+        <%end%>
+        </fieldtest>
       <% end %>
-    <ul class="list-comment">
-      <% @post.comments.each do |comment| %>
-      <div class="comment-item">
-    <% like = comment.likes.where(user_id: @current_user.id).first %>
 
-      <li class="box-comment">
-        <%= comment.user.name %>   <%= comment.content %>
-        <button data-target="<%= comment.id %>" class="btn btn-danger delete-comment">Delete</button>
-        <p class="view-like">
-        <%= comment.likes.where(isLike: true).count %>
-        </p>
-        <button data-target="<%= comment.id %>" class="btn btn-primary comment-like"><%= like.try(:isLike) ? "Dislike" : "Like"%></button>
+    </div>
 
-      </li>
-      </div>
-      <% end%>
-    </ul>
+    <div class="col-md-12">
+      <ul class="list-comment list-unstyled ">
+        <% @post.comments.each do |comment| %>
+        <div class="comment-item">
+
+          <li class="box-comment margin_bottom_20 col-md-12">
+            <div class="col-md-6">
+            <%= comment.user.name %> <%= comment.content %>
+            </div>
+            <div class="col-md-6">
+            <% if @current_user%>
+              <%if @current_user.id == comment.user.id%>
+                <button data-target="<%= comment.id %>" class="btn btn-danger delete-comment"  >Xóa</button>
+              <%end%>
+            <%end%>
+            </div>
+          </li>
+        </div>
+        <% end%>
+      </ul>
+    </div>
 
     </div>
   </div>

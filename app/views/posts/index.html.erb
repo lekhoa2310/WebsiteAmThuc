@@ -2,7 +2,11 @@
 <h1 class="text-center text-danger">Danh sách các bài post</h1>
 <div class="container">
   <div class="col-md-8 col-sm-offset-2">
-    <a href="<%=new_post_path%>" class="btn btn-info">Đăng bài</a>
+    <% if @current_user %>
+      <a href="<%=new_post_path%>"  class="btn btn-info" >Đăng bài</a>
+    <%else%>
+      <button class="btn btn-info return-login">Đăng bài</button>
+    <%end%>
     <% @posts.each do |post| %>
       <div class="post-item">
       <% if @current_user %>
@@ -19,7 +23,7 @@
           </div>
         <%end%>
       <%end%>
-      <h3><%= post.user.name%>: <a href="<%= post_path(post)%>"> <%= post.title %></a></h3>
+      <h3><%= post.user.name%>: <a href="<%= post_path(post)%>" > <%= post.title %></a></h3>
       <div>
         <%= post.content %>
       </div>
@@ -31,10 +35,12 @@
         <button data-target="<%= like_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
 
       <%else%>
-        <a href="<%=login_path %>"   data-confirm="Bạn chắc chắn muốn xóa?" class="btn btn-primary return_login">Thích</a>
+        <button class="btn btn-primary return-login">Thích</button>
       <%end%>
+
+      <a href="<%=post_path(post)%>" class="btn btn-success">Bình luận</a>
       </div>
-    <% end %>
+      <%end %>
 
   </div>
 

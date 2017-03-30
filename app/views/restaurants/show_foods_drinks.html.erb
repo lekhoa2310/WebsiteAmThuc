@@ -13,10 +13,10 @@
   </div>
   <div class="container">
     <div class="btn-group">
-      <a class="btn btn-info" href="">Món ăn</a>
-      <a href="<%=show_foods_drinks_restaurant_path(@restaurant)%>" class="btn btn-default">Thức uống</a>
+      <a class="btn btn-default" href="<%=restaurant_path(@restaurant)%>">Món ăn</a>
+      <a href="#" class="btn btn-info">Thức uống</a>
     </div>
-    <h2 class="text-primary text-center margin_bottom_20">Danh sách món ăn</n></h2>
+    <h2 class="text-primary text-center margin_bottom_20">Danh sách đồ uống</n></h2>
     <% @foods.each do |food|%>
     <div class="col-md-6   box_foods_index">
       <%= image_tag food.image.url(:medium), class: "picture_center" %>

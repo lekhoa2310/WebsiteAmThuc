@@ -10,6 +10,10 @@
 .margin_left_10{
   margin-left: 10px;
 }
+
+.text-strong{
+  font-weight: bold;
+}
 .picture_center{
   display: block;
   margin: 0 auto;

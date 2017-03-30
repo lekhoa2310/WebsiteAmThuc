@@ -20,7 +20,12 @@ Rails.application.routes.draw do
       post :like
     end
   end
-  resources :restaurants
+  resources :comments 
+  resources :restaurants do
+    member do
+      get :show_foods_drinks
+    end
+  end
   resources :users do
     member do
       post :change_password
