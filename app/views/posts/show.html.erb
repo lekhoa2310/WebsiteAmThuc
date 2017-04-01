@@ -17,7 +17,7 @@
       </div>
       <%end%>
     <%end%>
-<h3 class="text-danger"><span class="text-primary <text-strong></text-strong>"><%= @post.user.name%>:</span> <%= @post.title %></h3>
+      <h3 class="text-danger"><span class="text-primary text-strong"><%= @post.user.name%>:</span> <%= @post.title %></h3>
     <div>
       <%= @post.content %>
     </div>
@@ -39,7 +39,7 @@
 
       <%= form_for Comment.new, remote: true do |f| %>
         <fieldtest>
-        <%= f.text_field :content , class: "form-control margin_bottom_10 " , required: "required"%>
+        <%= f.text_area :content , class: "form-control margin_bottom_10 " , required: "required"%>
         <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
         <%if @current_user%>
           <button type="button"  class="btn btn-primary post-comment" >Bình luận</button>
@@ -55,11 +55,18 @@
       <ul class="list-comment list-unstyled ">
         <% @post.comments.each do |comment| %>
         <div class="comment-item">
-
           <li class="box-comment margin_bottom_20 col-md-12">
+
             <div class="col-md-6">
-            <%= comment.user.name %> <%= comment.content %>
+              <span class="text-primary text-strong"><%= comment.user.name %>:</span> <%= comment.content %>
+
+              <div class=" col-md-12 margin_bottom_20 box-replies">
+                <a class="reply-comment" data-target="<%=comment.id%>" >trả lời</a>
+                <div class="replies"></div>
+              </div>
+
             </div>
+
             <div class="col-md-6">
             <% if @current_user%>
               <%if @current_user.id == comment.user.id%>

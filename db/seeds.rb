@@ -76,6 +76,6 @@ District.create([
 ])
 
 User.create([
+  {name: "admin", email: "admin@gmail.com", password: "123456",district_id: "1", address: "ktx", phone: "0989899466" , birthday: "1993-10-23", gender: "1", role: "5"},
   {name: "le khoa", email: "lekhoa@gmail.com", password: "123456",district_id: "1", address: "ktx", phone: "0989899466" , birthday: "1993-10-23", gender: "1", role: "5"}
-
-  ])
+])

@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find_by(params[:id])
+    @comment = Comment.find_by_id(params[:id])
     if @comment.user.id == @current_user.id
       if @comment.destroy
         render json: {success: true}

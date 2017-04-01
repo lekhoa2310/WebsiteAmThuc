@@ -1,0 +1,26 @@
+<div class="open-replies">
+  <div class="new-reply-comment">
+    <textarea name="reply-content" ></textarea>
+    <%if @current_user%>
+      <a data-target="<%= @comment.id %>" class="post-reply-comment">bình luận</a>
+    <%else%>
+      <a  class="return-login" >bình luận</a>
+    <%end%>
+  </div>
+  <div class="list-replies">
+    <% @replies.each do |reply|%>
+      <div class=" col-md-12 margin_bottom_10 box-reply" >
+        <div class="col-md-10">
+          <span class="text-primary text-strong"><%= reply.user.name %>:</span> <%= reply.content %>
+        </div>
+        <div class="col-md-2">
+        <% if @current_user%>
+          <%if @current_user.id == reply.user.id%>
+            <button data-target="<%= reply.id %>" class="btn btn-danger delete-reply"  >Xóa</button>
+          <%end%>
+        <%end%>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
