@@ -3,7 +3,7 @@
   <head>
     <title>Website Ẩm thực</title>
     <%= csrf_meta_tags %>
-<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -21,7 +21,9 @@
 
     <%= yield %>
 
-          <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script language="javascript" type="text/javascript"  > var current_user = '<%= @current_user ? @current_user.id : "" %>'</script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 
 </html>

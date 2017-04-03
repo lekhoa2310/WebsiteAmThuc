@@ -27,7 +27,7 @@
     <div class="margin_bottom_10">
       <%if @current_user%>
         <%like = @post.likes.where(user_id: @current_user.id).first%>
-        <button data-target="<%= like_post_path(@post.id) %>"  data-method ="post" class="btn btn-primary post-like margin_bottom_20"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
+        <button data-target="<%= like_api_v1_post_path(@post.id) %>"  data-method ="post" class="btn btn-primary post-like margin_bottom_20"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
 
       <%else%>
         <button class="btn btn-primary return-login">Thích</button>
@@ -36,11 +36,12 @@
 
 
     <div class="col-md-6 margin_bottom_20">
-
-      <%= form_for Comment.new, remote: true do |f| %>
+      <!-- remote để send bằng ajax not submit -->
+      <%= form_for([:api, :v1, Comment.new], remote: true)  do |f| %>
         <fieldtest>
         <%= f.text_area :content , class: "form-control margin_bottom_10 " , required: "required"%>
         <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
+        <%= f.hidden_field :current_user, as: :hidden, value: @current_user %>
         <%if @current_user%>
           <button type="button"  class="btn btn-primary post-comment" >Bình luận</button>
         <%else%>
@@ -55,11 +56,10 @@
       <ul class="list-comment list-unstyled ">
         <% @post.comments.each do |comment| %>
         <div class="comment-item">
-          <li class="box-comment margin_bottom_20 col-md-12">
+          <li class="box-comment  col-md-12">
 
             <div class="col-md-6">
               <span class="text-primary text-strong"><%= comment.user.name %>:</span> <%= comment.content %>
-
               <div class=" col-md-12 margin_bottom_20 box-replies">
                 <a class="reply-comment" data-target="<%=comment.id%>" >trả lời</a>
                 <div class="replies"></div>

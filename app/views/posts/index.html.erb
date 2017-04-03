@@ -32,7 +32,7 @@
       </p>
       <%if @current_user%>
         <%like = post.likes.where(user_id: @current_user.id).first%>
-        <button data-target="<%= like_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
+        <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
 
       <%else%>
         <button class="btn btn-primary return-login">Thích</button>

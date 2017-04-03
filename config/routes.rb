@@ -3,17 +3,22 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :comments, only: [] do
-        member do
-          post :create_reply_comment
-          get :replies
-          delete :destroy_reply
-        end
-      end
 
       resources :districts, only: [] do
         collection do
           get :return_districts_by_city_id
+        end
+      end
+      resources :posts, only: [] do
+        member do
+          post :like
+        end
+      end
+      resources :comments do
+        member do
+          post :create_reply_comment
+          get :replies
+          delete :destroy_reply
         end
       end
     end
@@ -34,12 +39,8 @@ Rails.application.routes.draw do
 
   end
 
-  resources :posts do
-    member do
-      post :like
-    end
-  end
-  resources :comments
+  resources :posts 
+  # resources :comments
   resources :restaurants do
     member do
       get :show_foods_drinks
