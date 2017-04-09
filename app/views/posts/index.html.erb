@@ -1,47 +1,57 @@
-
+<div id="home-page">
 <h1 class="text-center text-danger">Danh sách các bài post</h1>
 <div class="container">
   <div class="col-md-8 col-sm-offset-2">
     <% if @current_user %>
-      <a href="<%=new_post_path%>"  class="btn btn-info" >Đăng bài</a>
+      <a href="<%=new_post_path%>"  class="btn btn-info margin_bottom_10" >Đăng bài</a>
     <%else%>
-      <button class="btn btn-info return-login">Đăng bài</button>
+      <button class="btn btn-info margin_bottom_10 return-login">Đăng bài</button>
     <%end%>
     <% @posts.each do |post| %>
       <div class="post-item">
-      <% if @current_user %>
-        <%if @current_user.id == post.user_id%>
-          <div class="dropdown option">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Tùy chọn <span class="caret">
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Xem</a></li>
-            <li><a class="dropdown-item" href="<%= edit_post_path(post)%>">Sửa</a></li>
-            <li><a class="dropdown-item " href="<%= post_path(post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
+        <% if @current_user %>
+          <%if @current_user.id == post.user_id || @current_user.is_admin?%>
+            <div class="dropdown option">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Tùy chọn <span class="caret">
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Xem</a></li>
+              <li><a class="dropdown-item" href="<%= edit_post_path(post)%>">Sửa</a></li>
+              <li><a class="dropdown-item " href="<%= post_path(post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
+              </div>
             </div>
-          </div>
+          <%end%>
         <%end%>
-      <%end%>
-      <h3><%= post.user.name%>: <a href="<%= post_path(post)%>" > <%= post.title %></a></h3>
-      <div>
-        <%= post.content %>
+        <h3> <%= image_tag post.user.avatar.url(:avatar), class: " avatar_post" %> <span class="text-primary text-strong"><%= post.user.name%></span> <span href="<%= post_path(post)%>" > <%= post.title %></span></h3>
+        <p class="text-muted"> <%= post.created_at.strftime("%H:%M %d/%m/%Y")%></p>
+        <div class="margin_bottom_10">
+          <%= post.content %>
+        </div>
+
+        <%if @current_user%>
+          <%like = post.likes.where(user_id: @current_user.id).first%>
+          <!-- <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button> -->
+          <%if like.try(:isLike)%>
+            <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like">Thích</button>
+          <%else%>
+            <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-default post-like">Thích</button>
+          <%end%>
+        <%else%>
+          <button class="btn btn-primary return-login">Thích</button>
+        <%end%>
+        <a href="<%=post_path(post)%>" class="btn btn-success">Bình luận (<%= post.comments.count%>) </a>
+        <p class="view-like text-primary">
+          <%= post.likes.where(isLike: true).count %> người thích nội dung này
+        </p>
       </div>
-      <p class="view-like">
-        <%= post.likes.where(isLike: true).count %>
-      </p>
-      <%if @current_user%>
-        <%like = post.likes.where(user_id: @current_user.id).first%>
-        <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
 
-      <%else%>
-        <button class="btn btn-primary return-login">Thích</button>
-      <%end%>
 
-      <a href="<%=post_path(post)%>" class="btn btn-success">Bình luận</a>
+    <%end %>
+      <div class="pagination pull-right">
+        <%= will_paginate @restaurants , renderer: BootstrapPagination::Rails %>
       </div>
-      <%end %>
-
   </div>
 
+</div>
 </div>

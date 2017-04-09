@@ -1,0 +1,55 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12 row">
+      <div class="margin_top_10 form-group col-md-4 row">
+        <form class="navbar-form" role="search" action="/admin/posts/find_post" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Tên tiêu đề..." name="title_name">
+            <div class="input-group-btn">
+              <!-- <i class="glyphicon glyphicon-search"></i> -->
+                <button class="btn btn-default" type="submit">Tìm</button>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-post">
+    <h1 class = "text-center text-danger margin_bottom_50" >Danh sách các bài đăng</h1>
+
+    <table class="table table-hover table-bordered" >
+      <tr style="background: pink">
+        <th>STT</th>
+        <th>Tên người đăng</th>
+        <th>Tiêu đề</th>
+        <th>Nội dung</th>
+        <th>Lượt thích</th>
+        <th>Lượt bình luận</th>
+        <th>Ngày đăng</th>
+        <th>Chức năng</th>
+      </tr>
+      <% @posts.each_with_index do |post,index| %>
+      <tr class="box-post">
+        <td><%= index + 1 + (@page-1)*3  %></td>
+        <td><%= post.user.name %></td>
+        <td><%= post.title %></td>
+        <td class="post-content"><%= post.content %></td>
+        <td><%= post.likes.count %></td>
+        <td><%= post.comments.count %></td>
+        <td><%= post.created_at.strftime("%H:%M %d/%m/%Y") %></td>
+        <td>
+          <a href="<%= post_path(post)%>" class="btn btn-primary">Xem</a>
+          <a href ="<%= admin_post_path(post) %>" data-method="delete" data-target="<%= post.id %>" class="btn btn-danger delete-post" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+        </td>
+      </tr>
+
+      <% end %>
+    </table>
+    <div class="pagination pull-right">
+      <%= will_paginate @posts , renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>

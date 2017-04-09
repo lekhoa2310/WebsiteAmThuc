@@ -1,8 +1,8 @@
 
 <div class="container">
-  <div class="col-md-8 col-sm-offset-2">
+  <div class="col-md-8 col-sm-offset-2 background_content">
 
-    <div class="post-item">
+    <div class="post-item ">
     <% if @current_user %>
     <%if @current_user.id == @post.user_id%>
       <div class="dropdown option">
@@ -17,67 +17,73 @@
       </div>
       <%end%>
     <%end%>
-      <h3 class="text-danger"><span class="text-primary text-strong"><%= @post.user.name%>:</span> <%= @post.title %></h3>
-    <div>
+      <h3 class="text-danger"> <%= image_tag @post.user.avatar.url(:avatar), class: " avatar_post" %> <span class="text-primary text-strong"><%= @post.user.name%>:</span> <%= @post.title %></h3>
+    <div class="margin_bottom_10">
       <%= @post.content %>
     </div>
-    <p class="view-like">
-      <%= @post.likes.where(isLike: true).count %>
-    </p>
-    <div class="margin_bottom_10">
+
+    <div class="">
       <%if @current_user%>
         <%like = @post.likes.where(user_id: @current_user.id).first%>
-        <button data-target="<%= like_api_v1_post_path(@post.id) %>"  data-method ="post" class="btn btn-primary post-like margin_bottom_20"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button>
-
+        <!-- <button data-target="<%= like_api_v1_post_path(@post.id) %>"  data-method ="post" class="btn btn-primary post-like "><%= like.try(:isLike) ? "Không thích" : "Thích"%></button> -->
+        <%if like.try(:isLike)%>
+          <button data-target="<%= like_api_v1_post_path(@post.id) %>"  data-method ="post" class="btn btn-primary post-like">Thích</button>
+        <%else%>
+          <button data-target="<%= like_api_v1_post_path(@post.id) %>"  data-method ="post" class="btn btn-default post-like">Thích</button>
+        <%end%>
       <%else%>
         <button class="btn btn-primary return-login">Thích</button>
       <%end%>
     </div>
+    <p class="view-like text-primary">
+      <%= @post.likes.where(isLike: true).count %> người thích nội dung này
+    </p>
 
 
-    <div class="col-md-6 margin_bottom_20">
-      <!-- remote để send bằng ajax not submit -->
-      <%= form_for([:api, :v1, Comment.new], remote: true)  do |f| %>
-        <fieldtest>
-        <%= f.text_area :content , class: "form-control margin_bottom_10 " , required: "required"%>
-        <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
-        <%= f.hidden_field :current_user, as: :hidden, value: @current_user %>
-        <%if @current_user%>
-          <button type="button"  class="btn btn-primary post-comment" >Bình luận</button>
-        <%else%>
-          <button type="button"  class="btn btn-primary return-login" >Bình luận</button>
-        <%end%>
-        </fieldtest>
-      <% end %>
-
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-comment list-unstyled ">
+          <% @post.comments.each do |comment| %>
+          <div class="comment-item row ">
+            <li class="box-comment  col-md-12 margin_top_20 row">
+                <div class="col-md-6">
+                  <span class="text-primary text-strong"> <%= image_tag comment.user.avatar.url(:avatar), class: " avatar_picture" %> <%= comment.user.name %>:</span> <%= comment.content %>
+                  <div class=" col-md-12  box-replies">
+                    <a class="reply-comment" data-target="<%=comment.id%>" >Hiện <span class="count-replies"> <%= reply = Comment.where(comment_id: comment.id).count%> </span>trả lời</a>
+                    <div class="replies"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                <% if @current_user%>
+                  <%if @current_user.id == comment.user.id%>
+                    <span data-target="<%= comment.id %>" class="text-danger delete-comment"  >x</span>
+                  <%end%>
+                <%end%>
+                </div>
+            </li>
+          </div>
+          <% end%>
+        </ul>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-6 margin_bottom_20 form-comment ">
+        <!-- remote để send bằng ajax not submit -->
+        <%if @current_user %> <%= image_tag @current_user.avatar.url(:avatar), class: " avatar_picture" %> <%end%>
+        <%= form_for([:api, :v1, Comment.new], remote: true)  do |f| %>
+          <fieldtest>
+          <%= f.text_area :content , class: "form-control margin_bottom_10 " , required: "required", placeholder: "Viết bình luận..."%>
+          <%= f.hidden_field :post_id, as: :hidden, value: @post.id %>
+          <%= f.hidden_field :current_user, as: :hidden, value: @current_user %>
+          <!-- <%if @current_user%>
+            <button type="button"  class="btn btn-primary post-comment" >Bình luận</button>
+          <%else%>
+            <button type="button"  class="btn btn-primary return-login" >Bình luận</button>
+          <%end%> -->
+          </fieldtest>
+        <% end %>
 
-    <div class="col-md-12">
-      <ul class="list-comment list-unstyled ">
-        <% @post.comments.each do |comment| %>
-        <div class="comment-item">
-          <li class="box-comment  col-md-12">
-
-            <div class="col-md-6">
-              <span class="text-primary text-strong"><%= comment.user.name %>:</span> <%= comment.content %>
-              <div class=" col-md-12 margin_bottom_20 box-replies">
-                <a class="reply-comment" data-target="<%=comment.id%>" >trả lời</a>
-                <div class="replies"></div>
-              </div>
-
-            </div>
-
-            <div class="col-md-6">
-            <% if @current_user%>
-              <%if @current_user.id == comment.user.id%>
-                <button data-target="<%= comment.id %>" class="btn btn-danger delete-comment"  >Xóa</button>
-              <%end%>
-            <%end%>
-            </div>
-          </li>
-        </div>
-        <% end%>
-      </ul>
+      </div>
     </div>
 
     </div>

@@ -1,0 +1,11 @@
+
+  <div class=" col-md-12 margin_top_10 margin_bottom_10 box-reply ">
+    <div class="row">
+      <div class="col-md-10">
+      <%= image_tag @current_user.avatar.url(:avatar), class: " avatar_reply" %> <span class="text-primary text-strong"><%= @current_user.name %>: </span> <%= @comment.content%>
+      </div>
+      <div class="col-md-2 ">
+        <span data-target="<%= @comment.id%>" class="text-danger delete-reply" >x</span>
+      </div>
+    </div>
+  </div>

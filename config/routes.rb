@@ -26,20 +26,46 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'restaurants/store_pendding', to: 'restaurants#store_pendding'
-    resources :restaurants
-    resources :users
+    resources :restaurants do
+      collection do
+        get :find_restaurant
+      end
+    end
+    resources :users do
+      collection do
+        get :find_user
+      end
+    end
+    resources :posts do
+      collection do
+        get :find_post
+      end
+    end
   end
 
   namespace :dashboard do
     get 'restaurants/store_pendding', to: 'restaurants#store_pendding'
     resources :restaurants do
-      resources :foods
-      resources :staffs
+      resources :foods do
+        collection do
+          get :find_food
+        end
+      end
+      resources :staffs do
+        collection do
+          get :find_staff
+        end
+      end
     end
 
+    resources :posts do
+      collection do
+        get :find_post
+      end
+    end
   end
 
-  resources :posts 
+  resources :posts
   # resources :comments
   resources :restaurants do
     member do

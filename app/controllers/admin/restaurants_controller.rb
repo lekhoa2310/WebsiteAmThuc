@@ -2,14 +2,27 @@ class Admin::RestaurantsController < Admin::BaseController
 
   def index
     @page = 1
-    @restaurants = Restaurant.where(actived: 1).paginate(:page => params[:page], :per_page => 3)
+    @restaurants = Restaurant.order('created_at desc').where(actived: 1).paginate(:page => params[:page], :per_page => 3)
     @page =  params[:page].to_i if params[:page].present?
   end
 
   def store_pendding
     @page = 1
-    @restaurants = Restaurant.where(actived: 0).all.paginate(:page => params[:page], :per_page => 3)
+    @restaurants = Restaurant.order('created_at desc').where(actived: 0).all.paginate(:page => params[:page], :per_page => 3)
     @page =  params[:page].to_i if params[:page].present?
+  end
+
+  def find_restaurant
+    @page = 1
+    restaurant_name = params[:restaurant_name]
+    result = Restaurant.where(:actived => 1)
+    @restaurants = result.where("name like ?", "%#{restaurant_name}%").paginate(:page => params[:page], :per_page => 3)
+    @page =  params[:page].to_i if params[:page].present?
+
+    if @restaurants.first.nil?
+      flash[:error] = "Không tìm thấy cửa hàng "
+      redirect_to admin_restaurants_path
+    end
   end
 
   def show

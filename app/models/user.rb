@@ -12,6 +12,11 @@ class User < ApplicationRecord
   validates :birthday, presence:true
   validates :district_id, presence:true
 
+    has_attached_file :avatar, :content_type => %w(image/jpeg image/jpg image/png ), styles: { avatar: "40x40", med: "100x100", medium: "320x480",big:"640x800" , large: "1024x1900" },
+   :default_url => "/images/users/person-icon.png"
+   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+
+
   belongs_to :district
   has_many :restaurants
   has_many :posts

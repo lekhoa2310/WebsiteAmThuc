@@ -7,6 +7,21 @@
       <a href="<%=dashboard_restaurant_staffs_path%>" class="btn btn-default">Quản lý nhân viên</a>
       <a href="#" class="btn btn-default">Quản lý đặt hàng</a>
     </div>
+    <div class="row">
+      <div class="col-md-12 row">
+        <div class="margin_top_10 form-group col-md-4 row">
+          <form class="navbar-form" role="search" action="/dashboard/restaurants/<%=@restaurant.id%>/foods/find_food" method="get">
+          <div class="input-group">
+              <input type="text" class="form-control" placeholder="Tên đồ dùng..." name="food_name">
+              <div class="input-group-btn">
+                <!-- <i class="glyphicon glyphicon-search"></i> -->
+                  <button class="btn btn-default" type="submit">Tìm</button>
+              </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <h1 class="text-center text-danger margin_bottom_50 ">Danh sách thực đơn <%=@restaurant.name %></h1>
     <div class="col-md-12 margin_bottom_10">  <a href="<%=new_dashboard_restaurant_food_path%>" class="btn btn-primary">Thêm món ăn</a></div>
 

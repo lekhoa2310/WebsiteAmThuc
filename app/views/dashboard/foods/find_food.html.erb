@@ -1,0 +1,65 @@
+
+  <div class="container">
+
+    <div class="btn-group">
+      <a class="btn btn-default" href="<%=dashboard_restaurants_path%>">Quản lý cửa hàng</a>
+      <a class="btn btn-info" href="">Quản lý món ăn</a>
+      <a href="<%=dashboard_restaurant_staffs_path%>" class="btn btn-default">Quản lý nhân viên</a>
+      <a href="#" class="btn btn-default">Quản lý đặt hàng</a>
+    </div>
+    <div class="row">
+      <div class="col-md-12 row">
+        <div class="margin_top_10 form-group col-md-4 row">
+          <form class="navbar-form" role="search" action="/dashboard/restaurants/<%= @restaurant.id%>/foods/find_food" method="get">
+          <div class="input-group">
+              <input type="text" class="form-control" placeholder="Tên đồ dùng..." name="food_name">
+              <div class="input-group-btn">
+                <!-- <i class="glyphicon glyphicon-search"></i> -->
+                  <button class="btn btn-default" type="submit">Tìm</button>
+              </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <h1 class="text-center text-danger margin_bottom_50 ">Đồ dùng tương ứng <%=@restaurant.name %></h1>
+    <div class="col-md-12 margin_bottom_10">  <a href="<%=new_dashboard_restaurant_food_path%>" class="btn btn-primary">Thêm món ăn</a></div>
+
+
+    <div class="col-md-12">
+
+    <table class="table table-hover table-bordered" >
+      <tr style="background: pink">
+        <th>STT</th>
+        <th>Loại đồ dùng</th>
+        <th>Tên đồ dùng</th>
+        <th>Giá</th>
+        <th>Ảnh</th>
+        <th>Chức năng</th>
+      </tr>
+      <% @foods.each_with_index do |food,index| %>
+      <tr class="box-foods">
+        <td><%= index + 1 + (@page-1)*3  %></td>
+        <td><% if food.kind == "eat"  %> Đồ ăn <% else %> Đồ uống <%end%> </td>
+        <td><%= food.name %></td>
+        <td><%= food.price %></td>
+        <td> <%= image_tag food.image.url(:small), class: " picture_small" %></td>
+        <td>
+          <a href="<%= edit_dashboard_restaurant_food_path(food.restaurant.id, food.id ) %>" class="btn btn-warning">Sửa</a>
+          <a href ="<%= dashboard_restaurant_food_path(food.restaurant.id, food.id) %>" data-method="delete"  class="btn btn-danger delete-food" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+        </td>
+      </tr>
+
+      <% end %>
+    </table>
+
+    </div>
+
+
+    <div class="col-md-12">
+
+      <div class="pagination pull-right">
+        <%= will_paginate @foods_page , renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+  </div>

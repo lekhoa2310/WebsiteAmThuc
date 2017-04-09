@@ -12,6 +12,19 @@ before_action :find_restaurant
 
   end
 
+  def find_food
+    @page = 1
+    food_name = params[:food_name]
+    @restaurants = Restaurant.find_by_id params[:id]
+    @foods = @restaurant.foods.where("name like ?", "%#{food_name}%").paginate(:page => params[:page], :per_page => 3)
+    @page =  params[:page].to_i if params[:page].present?
+
+    if @foods.first.nil?
+      flash[:error] = "Không tìm thấy thực phẩm "
+      redirect_to dashboard_restaurant_foods_path
+    end
+  end
+
   def new
     @food = Food.new
   end

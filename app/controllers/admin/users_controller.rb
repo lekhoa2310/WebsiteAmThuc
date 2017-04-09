@@ -8,6 +8,17 @@ class Admin::UsersController < Admin::BaseController
 
   end
 
+  def find_user
+    @page = 1
+    user_name = params[:user_name]
+    @users = User.where("name like ?", "%#{user_name}%").paginate(:page => params[:page], :per_page => 3)
+    @page =  params[:page].to_i if params[:page].present?
+    if @users.first.nil?
+      flash[:error] = "Không tìm thấy tài khoản "
+      redirect_to admin_users_path
+    end
+  end
+
   def new
     @user = User.new
     @cities= City.all

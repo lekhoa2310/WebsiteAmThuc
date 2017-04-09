@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :check_user, except: [:index, :show]
   before_action :find_post, only: [:edit, :update, :show, :destroy, :like]
   def index
-    @posts = Post.all
+    @posts = Post.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
   end
 
   def new
@@ -20,7 +20,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    redirect_to posts_path if @post.user_id != @current_user.id
+    # redirect_to posts_path if @post.user_id != @current_user.id
+    if !(@post.user_id == @current_user.id || @current_user.is_admin? )
+      redirect_to posts_path
+    end
   end
 
   def update
@@ -37,7 +40,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    redirect_to posts_path if @post.user_id != @current_user.id
+    # redirect_to posts_path if @post.user_id != @current_user.id
+    if !(@post.user_id == @current_user.id || @current_user.is_admin? )
+      redirect_to posts_path
+    end
     if @post.destroy
       flash[:success]= "Bạn vừa xóa bài viết thành công"
       redirect_to posts_path
