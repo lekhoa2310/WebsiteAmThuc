@@ -21,6 +21,16 @@ Rails.application.routes.draw do
           delete :destroy_reply
         end
       end
+
+      resources :carts, only: [] do
+        member do
+          post :choose_food
+          post :increase_quantity
+          post :decrease_quantity
+          post :cancel_food
+          post :cart
+        end
+      end
     end
   end
 
@@ -65,18 +75,28 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts
+  resources :posts do
+    collection do
+      get :find_post
+    end
+  end
   # resources :comments
   resources :restaurants do
     member do
       get :show_foods_drinks
+      post :new_cart
+      post :cart
+    end
+
+    collection do
+      get :find_restaurant
     end
   end
   resources :users do
     member do
       post :change_password
     end
-    end
+  end
 
   get"/login" => "sessions#new", as: :login
   post"/sign" => "sessions#create"

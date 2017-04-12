@@ -12,12 +12,12 @@
 
   </div>
   <div class="container">
-    <div class="btn-group">
+    <!-- <div class="btn-group">
       <a class="btn btn-info" href="">Món ăn</a>
       <a href="<%=show_foods_drinks_restaurant_path(@restaurant)%>" class="btn btn-default">Thức uống</a>
-    </div>
+    </div> -->
     <h2 class="text-primary text-center margin_bottom_20">Danh sách món ăn</n></h2>
-    <% @foods.each do |food|%>
+    <!-- <% @foods.each do |food|%>
     <div class="col-md-6   box_foods_index">
       <%= image_tag food.image.url(:medium), class: "picture_center" %>
       <h3 class="text-center text-danger"><%=food.name%></h3>
@@ -32,8 +32,82 @@
       <div class="pagination pull-right">
         <%= will_paginate @foods , renderer: BootstrapPagination::Rails %>
       </div>
-    </div>
-  </div>
+    </div> -->
+
+        <div class="col-md-9">
+          <% @foods.each do |food|%>
+          <div class="col-md-4  box_foods_index box_foods_index<%=food.id%>">
+            <%= image_tag food.image.url(:small), class: "picture_list_foods" %>
+            <h3 class="text-center text-primary"><%=food.name%></h3>
+            <h4 class="text-center">Giá: <%=food.price%></h4>
+            <div class="text-center btn-choose-food">
+              <% if @current_user%>
+                <% check = false%>
+                <% session[:cart][@restaurant.id].each do |f|%>
+                   <%if f["id"] == food.id
+                      check = true
+                   end%>
+                <%end%>
+                <%if check%>
+                  <button class="btn btn-default cancel-food" data-restaurant="<%= food.restaurant.id%>" data-food="<%=food.id%>">Hủy chọn </button>
+                <%else%>
+                  <button class="btn btn-danger choose-food " data-restaurant="<%= food.restaurant.id%>" data-food="<%=food.id%>">Thêm vào giỏ </button>
+                <%end%>
+              <%else%>
+                <button class="btn btn-danger return-login " >Thêm vào giỏ </button>
+              <%end%>
+              <!-- <a href="" class="text-center btn btn-primary">Đặt hàng</a> -->
+            </div>
+          </div>
+          <%end%>
+        </div>
+
+        <div class="col-md-3 cart">
+
+          <h3 class="text-center text-primary">Giỏ hàng</h3>
+          <div class=" foods-of-order row">
+            <%session[:cart][@restaurant.id].each do |f|%>
+            <div class="row">
+            <div class="food<%=f["id"]%> col-md-12">
+              <div class="col-md-4">
+                <p><%=f["name"]%></p>
+              </div>
+              <div class="col-md-4 change-quantity ">
+                <p><span data-restaurant="<%=@restaurant.id%> " data-food="<%= f["id"]%>"class="icon-plus glyphicon glyphicon-plus txt-green"></span> <span class="text-strong quantiy "><%=f["quantity"]%></span> <span data-restaurant="<%=@restaurant.id%> " data-food="<%=f["id"]%>" class="icon-minus glyphicon glyphicon-minus"></span></p>
+              </div>
+              <div class="col-md-4 ">
+                <p><%=f["price"]%></p>
+              </div>
+            </div>
+            </div>
+            <%end%>
+          </div>
+          <div class=" row">
+            <div class="col-md-6"><p>Phí vận chuyển</p></div>
+            <div class="col-md-2 "></div>
+            <div class="col-md-4 "><p>10000</p> </div>
+          </div>
+          <div class="row">
+          <div class="col-md-6"><p>Tổng tiền</p></div>
+          <div class="col-md-2 "></div>
+          <div class="col-md-4 "><p id="total"><%=@total%></p></div>
+          </div>
+          <% if @current_user%>
+            <a href="<%= new_cart_restaurant_path(@restaurant)%>" data-method = "post"class="col-md-12 btn btn-danger">Đặt hàng</a>
+          <%else%>
+            <button class="btn btn-danger return-login col-md-12" >Đặt hàng </button>
+          <%end%>
+        </div>
+
+        <div class="container col-md-12">
+          <div class="pagination pull-right">
+            <%= will_paginate @foods , renderer: BootstrapPagination::Rails %>
+          </div>
+        </div>
+      </div>
+
+
+
 
      <script type="text/javascript">
        function initMap() {

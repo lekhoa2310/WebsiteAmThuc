@@ -1,8 +1,19 @@
 class PostsController < ApplicationController
-  before_action :check_user, except: [:index, :show]
-  before_action :find_post, only: [:edit, :update, :show, :destroy, :like]
+  before_action :check_user, except: [:index, :show, :find_post]
+  before_action :find_post_by_id, only: [:edit, :update, :show, :destroy, :like]
   def index
     @posts = Post.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def find_post
+    @page = 1
+    title_name = params[:title_name]
+    @posts = Post.where("title like ?", "%#{title_name}%").paginate(:page => params[:page], :per_page => 5)
+    @page = params[:page].to_i if params[:page].present?
+    if @posts.first.nil?
+      flash[:error] = "Không tìm thấy bài đăng "
+      redirect_to posts_path
+    end
   end
 
   def new
@@ -80,7 +91,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content)
   end
 
-  def find_post
+  def find_post_by_id
     @post = Post.find_by_id params[:id]
   end
 end

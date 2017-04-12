@@ -57,26 +57,26 @@ function returnLogin(){
    });
 
 //bình luận bài post bằng click
-   $('.post-comment').click(function(event) {
-     var self = $(this).parents("form");
-      if ($('#comment_content').val().length < 1) {
-      alert("Bình luận không được để trống")
-       }else {
-        event.preventDefault();
-        $.ajax({
-          url: self.attr('action'),
-          type: "post",
-          data: {
-            "comment[content]": $('#comment_content').val(),
-            "comment[post_id]": $('#comment_post_id').val()
-          },
-          success: function(res){
-            $('.list-comment').append(res.data);
-              $('#comment_content').val("");
-          }
-        });
-       }
-    });
+  //  $('.post-comment').click(function(event) {
+  //    var self = $(this).parents("form");
+  //     if ($('#comment_content').val().length < 1) {
+  //     alert("Bình luận không được để trống")
+  //      }else {
+  //       event.preventDefault();
+  //       $.ajax({
+  //         url: self.attr('action'),
+  //         type: "post",
+  //         data: {
+  //           "comment[content]": $('#comment_content').val(),
+  //           "comment[post_id]": $('#comment_post_id').val()
+  //         },
+  //         success: function(res){
+  //           $('.list-comment').append(res.data);
+  //             $('#comment_content').val("");
+  //         }
+  //       });
+  //      }
+  //   });
 
 // hàm bình luân bài post
   function postComment(){
@@ -153,27 +153,27 @@ function returnLogin(){
   });
 
 //reply comment bằng click
-  $('body').on('click', '.post-reply-comment', function(event){
-    event.preventDefault();
-    var self = $(this);
-    var content =  self.parents('.new-reply-comment').find('input').val();
-    if (content){
-      $.ajax({
-        url: "/api/v1/comments/" + self.attr('data-target') + "/create_reply_comment",
-        type: "post",
-        data: {
-          "reply[content]": content ,
-          "reply[comment_id]": self.attr('data-target')
-        },
-        success: function(res){
-          self.parents('.new-reply-comment').find('textarea').val('') ;
-          self.parents('.open-replies').find('.list-replies').append(res.data);
-        }
-      });
-    }else{
-      alert("Bình luận không được để trống");
-    }
-  });
+  // $('body').on('click', '.post-reply-comment', function(event){
+  //   event.preventDefault();
+  //   var self = $(this);
+  //   var content =  self.parents('.new-reply-comment').find('input').val();
+  //   if (content){
+  //     $.ajax({
+  //       url: "/api/v1/comments/" + self.attr('data-target') + "/create_reply_comment",
+  //       type: "post",
+  //       data: {
+  //         "reply[content]": content ,
+  //         "reply[comment_id]": self.attr('data-target')
+  //       },
+  //       success: function(res){
+  //         self.parents('.new-reply-comment').find('textarea').val('') ;
+  //         self.parents('.open-replies').find('.list-replies').append(res.data);
+  //       }
+  //     });
+  //   }else{
+  //     alert("Bình luận không được để trống");
+  //   }
+  // });
 
 function postReply(self) {
   // var data_target = self.parents('.new-reply-comment').find('.post-reply-comment').attr('data-target');
@@ -225,6 +225,103 @@ $('body').on('click', '.delete-reply',function(event){
       }
     });
   }
+});
+
+//chọn đồ ăn muốn đặt
+$('.box_foods_index').on('click', '.choose-food', function(event){
+  var self = $(this);
+  $.ajax({
+    url: "/api/v1/carts/" + self.attr('data-restaurant')+ "/choose_food",
+    type: "post",
+    data: {
+      "food_id": self.attr('data-food')
+    },
+    success: function(res){
+      if(res.success){
+        self.parents('.btn-choose-food').append('\
+          <button class="btn btn-default cancel-food" data-restaurant="'+res.data.restaurant_id+'" data-food="'+res.data.food_id  +'">Hủy chọn </button>\
+        ');
+        self.remove();
+        $('.cart .foods-of-order').append(
+        '<div class="row">\
+          <div class=" col-md-12 food'+ res.data.food_id+'">\
+            <div class="col-md-4 ">\
+              <p>'+ res.data.food_name+'</p>\
+            </div>\
+            <div class="col-md-4 change-quantity ">\
+              <p><span data-restaurant="'+ self.attr('data-restaurant') +'" data-food= "'+ res.data.food_id+'" class="icon-plus glyphicon glyphicon-plus txt-green"></span> <span class="text-strong quantiy ">1</span> <span data-restaurant="'+ self.attr('data-restaurant') +'" data-food= "'+ res.data.food_id+'"  class="icon-minus glyphicon glyphicon-minus"></span></p>\
+            </div>\
+            <div class="col-md-4 ">\
+              <p>'+res.data.food_price+'</p>\
+            </div>\
+          </div>\
+        </div>\
+        ');
+        $('#total').html(res.data.total);
+      }
+    }
+  });
+});
+
+$('body').on('click', '.icon-plus', function(event){
+  var self = $(this);
+  $.ajax({
+    url: "/api/v1/carts/"+ self.attr('data-restaurant')+"/increase_quantity",
+    type: "post",
+    data: {
+      "food_id": self.attr('data-food')
+    },
+    success: function(res){
+       self.parents('.change-quantity').find('.quantiy').html(res.data.food_quantity);
+      $('body').find('#total').html(res.data.total);
+    }
+  })
+});
+
+$('body').on('click', '.icon-minus', function(event){
+  var self = $(this);
+  $.ajax({
+    url: "/api/v1/carts/"+ self.attr('data-restaurant')+"/decrease_quantity",
+    type: "post",
+    data: {
+      "food_id": self.attr('data-food')
+    },
+    success: function(res){
+      if (res.data.food_quantity == 0) {
+        $('.cart .foods-of-order .food'+res.data.food_id+'').remove();
+        $('#total').html(res.data.total);
+        $('.box_foods_index'+res.data.food_id+'').find('.btn-choose-food').append('\
+          <button class="btn btn-danger choose-food" data-restaurant="'+res.data.restaurant_id+'" data-food="'+res.data.food_id+'">Thêm vào giỏ </button>\
+        ');
+        $('.box_foods_index'+res.data.food_id+'').find('.btn-choose-food .cancel-food').remove();
+      }
+      self.parents('.change-quantity').find('.quantiy').html(res.data.food_quantity);
+      $('body').find('#total').html(res.data.total);
+    }
+  })
+});
+
+
+$('.box_foods_index').on('click', '.cancel-food', function(event){
+  var self = $(this);
+  $.ajax({
+    url: "/api/v1/carts/" + self.attr('data-restaurant')+ "/cancel_food",
+    type: "post",
+    data: {
+      "food_id": self.attr('data-food')
+    },
+    success: function(res){
+      if(res.success){
+        self.parents('.btn-choose-food').append('\
+          <button class="btn btn-danger choose-food" data-restaurant="'+res.data.restaurant_id+'" data-food="'+res.data.food_id+'">Thêm vào giỏ </button>\
+        ');
+        self.remove();
+        // self.parents('.box_foods_index').find('.choose-food').removeClass("hidden");
+        $('.cart .foods-of-order .food'+res.data.food_id+'').remove();
+        $('#total').html(res.data.total);
+      }
+    }
+  });
 });
 
 });
