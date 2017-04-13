@@ -4,6 +4,7 @@ class Restaurant < ApplicationRecord
   belongs_to :district
   has_many :foods, dependent: :delete_all
   has_many :staffs
+  has_many :orders
 
   validates :name, presence: true
   validates :address, presence: true

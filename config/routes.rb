@@ -61,11 +61,28 @@ Rails.application.routes.draw do
           get :find_food
         end
       end
+
       resources :staffs do
         collection do
           get :find_staff
         end
       end
+
+      resources :orders, only: [] do
+        collection do
+          get :orders_pending
+          get :orders_shipping
+          get :orders_complete
+          get :orders_cancel
+        end
+
+        member do
+          patch :accept_order
+          patch :complete_ship
+          patch :cancel_order
+        end
+      end
+
     end
 
     resources :posts do

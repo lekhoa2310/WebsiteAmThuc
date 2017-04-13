@@ -6,6 +6,23 @@ $(document).ready(function () {
      format: "yyyy-mm-dd"
    });
 
+   //sidebar
+  //  $(function(){
+   //
+  //  	$('#slide-submenu').on('click',function() {
+  //          $(this).closest('.list-group').fadeOut('slide',function(){
+  //          	$('.mini-submenu').fadeIn();
+  //          });
+   //
+  //        });
+   //
+  //  	$('.mini-submenu').on('click',function(){
+  //          $(this).next('.list-group').toggle('slide');
+  //          $('.mini-submenu').hide();
+  //  	})
+  //  })
+
+
 //Get các giá trị quận của thành phố
    $('#city_select').on('change',function(){
      var self = $(this);

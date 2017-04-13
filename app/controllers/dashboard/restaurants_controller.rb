@@ -2,14 +2,14 @@ class Dashboard::RestaurantsController < Dashboard::BaseController
 
   def index
     @page = 1
-    @restaurants = @current_user.restaurants.where(actived: 1).paginate(:page => params[:page], :per_page => 3)
+    @restaurants = @current_user.restaurants.where(actived: 1).paginate(:page => params[:page], :per_page => 5)
     @page =  params[:page].to_i if params[:page].present?
 
   end
 
   def store_pendding
     @page = 1
-    @restaurants = @current_user.restaurants.where(actived: 0).paginate(:page => params[:page], :per_page => 3)
+    @restaurants = @current_user.restaurants.where(actived: 0).paginate(:page => params[:page], :per_page => 5)
     @page =  params[:page].to_i if params[:page].present?
   end
 

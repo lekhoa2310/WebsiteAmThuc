@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :delete_all
   has_many :likes, dependent: :delete_all
+  has_many :orders
 
   def hash_password
     self.password = Digest::MD5::hexdigest(self.password)

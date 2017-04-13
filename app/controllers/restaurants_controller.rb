@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find_by_id params[:id]
-    @foods = @restaurant.foods.where(kind: "eat").paginate(:page => params[:page], :per_page => 9)
+    @foods = @restaurant.foods.order('kind desc').paginate(:page => params[:page], :per_page => 9)
     session[:cart][@restaurant.id] = [] if session[:cart][@restaurant.id].nil?
     @total = 10000
     session[:cart][@restaurant.id].each do |f|
@@ -26,8 +26,29 @@ class RestaurantsController < ApplicationController
   end
 
   def cart
+    total = 10000
     @restaurant = Restaurant.find_by_id params[:id]
-
+    @order = Order.new(user_id: @current_user.id, restaurant_id: @restaurant.id,phone: params[:phone], address: params[:address])
+    if @order.save
+      session[:cart][@restaurant.id].each do |f|
+        @foods_of_order = FoodsOfOrder.new(order_id: @order.id, food_id: f["id"], quantity: f["quantity"], price: f["price"])
+        if @foods_of_order.save
+          total += (f["quantity"] * f["price"])
+          next
+        else
+          @order.destroy
+          break
+          flash[:error] = "Đặt hàng thất bại"
+          redirect_to restaurant_path(@restaurant)
+        end
+      end
+      @order.update_attributes(total: total)
+      flash[:success] = "Đặt hàng thành công"
+      redirect_to restaurant_path(@restaurant)
+    else
+      flash[:error] = "Đặt hàng thất bại"
+      redirect_to restaurant_path(@restaurant)
+    end
   end
 
   def find_restaurant

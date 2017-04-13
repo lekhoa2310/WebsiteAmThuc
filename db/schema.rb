@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403081109) do
+ActiveRecord::Schema.define(version: 20170412033227) do
 
   create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 20170403081109) do
     t.index ["restaurant_id"], name: "index_foods_on_restaurant_id", using: :btree
   end
 
+  create_table "foods_of_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "order_id"
+    t.integer  "food_id"
+    t.integer  "quantity"
+    t.integer  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_foods_of_orders_on_food_id", using: :btree
+    t.index ["order_id"], name: "index_foods_of_orders_on_order_id", using: :btree
+  end
+
   create_table "likes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "post_id"
@@ -59,6 +70,19 @@ ActiveRecord::Schema.define(version: 20170403081109) do
     t.datetime "updated_at",                 null: false
     t.index ["post_id"], name: "index_likes_on_post_id", using: :btree
     t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.string   "address"
+    t.string   "phone"
+    t.integer  "total"
+    t.integer  "actived",       default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

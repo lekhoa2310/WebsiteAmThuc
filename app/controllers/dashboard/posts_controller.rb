@@ -3,18 +3,18 @@ class Dashboard::PostsController < Dashboard::BaseController
   before_action :find_post_by_id, only: [:edit, :update, :destroy]
   def index
     @page = 1
-    @posts = @current_user.posts.order('created_at desc').paginate(:page => params[:page], :per_page => 3)
+    @posts = @current_user.posts.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
     @page =  params[:page].to_i if params[:page].present?
   end
 
   def find_post
     @page = 1
     title_name = params[:title_name]
-    @posts = @current_user.posts.where("title like ? ", "%#{title_name}%").paginate(:page => params[:page], :per_page =>3)
+    @posts = @current_user.posts.where("title like ? ", "%#{title_name}%").paginate(:page => params[:page], :per_page =>5)
     @page = params[:page].to_i if params[:page].present?
     if @posts.first.nil?
       flash[:error] = "Không tìm thấy bài đăng"
-      redirect_to dashboard_post_path
+      redirect_to dashboard_posts_path
     end
 
   end

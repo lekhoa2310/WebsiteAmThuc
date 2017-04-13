@@ -3,7 +3,7 @@ class Dashboard::StaffsController <  Dashboard::BaseController
 
   def index
     @page = 1
-    @staffs = @restaurant.staffs.order('kind desc').paginate(:page => params[:page], :per_page => 3)
+    @staffs = @restaurant.staffs.order('kind desc').paginate(:page => params[:page], :per_page => 5)
     @page =  params[:page].to_i if params[:page].present?
   end
 
@@ -11,7 +11,7 @@ class Dashboard::StaffsController <  Dashboard::BaseController
     @page = 1
     staff_name = params[:staff_name]
     @restaurant = Restaurant.find_by_id params[:restaurant_id]
-    @staffs = @restaurant.staffs.where("name like ?", "%#{staff_name}%").paginate(:page => params[:page], :per_page => 3)
+    @staffs = @restaurant.staffs.where("name like ?", "%#{staff_name}%").paginate(:page => params[:page], :per_page => 5)
     @page = params[:page].to_i if params[:page].present?
 
     if @staffs.first.nil?

@@ -195,6 +195,8 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     formatador (0.2.5)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -324,6 +326,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   fog
+  font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
   jquery-validation-rails
@@ -343,4 +346,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.13.1
+   1.14.6

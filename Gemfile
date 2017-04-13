@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#awesome_icon
+gem "font-awesome-rails"
 # upload ảnh
 gem "paperclip"
 
