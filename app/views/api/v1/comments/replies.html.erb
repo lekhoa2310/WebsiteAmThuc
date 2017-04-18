@@ -2,6 +2,16 @@
     <div class="">
       <a class="reply-comment" data-target="<%=@comment.id%>" >Ẩn <%=Comment.where(comment_id: @comment.id).count%> trả lời</a>
     </div>
+    <div class="new-reply-comment margin_bottom_50">
+      <%if @current_user%> <%= image_tag @current_user.avatar.url(:avatar), class: " avatar_reply" %> <%end%>
+      <input type="text" name="reply-content" class="form-control " placeholder="Viết trả lời...">
+      <input type="hidden" value="<%= @comment.id %>" class="post-reply-comment">
+      <!-- <%if @current_user%>
+        <a data-target="<%= @comment.id %>" class="post-reply-comment">bình luận</a>
+      <%else%>
+        <a  class="return-login" >bình luận</a>
+      <%end%> -->
+    </div>
     <div class="list-replies margin_left_10">
       <% @replies.each do |reply|%>
       <div class="">
@@ -24,15 +34,6 @@
 
       <%end%>
     </div>
-    <div class="new-reply-comment margin_bottom_10">
-      <%if @current_user%> <%= image_tag @current_user.avatar.url(:avatar), class: " avatar_reply" %> <%end%>
-      <input type="text" name="reply-content" class="form-control " placeholder="Viết trả lời...">
-      <input type="hidden" value="<%= @comment.id %>" class="post-reply-comment">
-      <!-- <%if @current_user%>
-        <a data-target="<%= @comment.id %>" class="post-reply-comment">bình luận</a>
-      <%else%>
-        <a  class="return-login" >bình luận</a>
-      <%end%> -->
-    </div>
+
 
 </div>

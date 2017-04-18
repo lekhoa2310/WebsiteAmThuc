@@ -19,27 +19,48 @@
   <h1 class="text-center text-danger margin_bottom_50 ">Danh sách các cửa hàng</h1>
   <fieldtest>
   <form class="" action="<%= find_restaurant_by_address_restaurants_path %>" method="get">
-    <div class=" col-sm-8 col-sm-offset-2" style="margin-bottom:80px;">
-      <div class="text-center col-md-5 col-sm-6">
-        <select name="city" id="city_select" style="height:40px;width:250px"  required ="requied">
-          <option value="" >Thành phố</option>
-          <% @cities.each do |city| %>
-            <option value="<%= city.id %>"><%= city.name%></option>
-          <%end%>
-        </select>
-      </div>
-
-      <div class="col-md-2 text-center  ">
-        <button type="submit" class="search-big " name="button">  <i class="glyphicon glyphicon-search"></i></button>
-      </div>
-
+  <div class=" col-sm-8 col-sm-offset-2" style="margin-bottom:80px;">
+    <div class="text-center col-md-5 col-sm-6">
+      <select name="city" id="city_select" style="height:40px;width:250px" >
+        <option value="city">Thành phố</option>
+      <% @cities.each do |city| %>
+        <% if city.id == @city.id%>
+          <option value="<%= city.id %>" selected ><%= city.name%></option>
+        <%else%>
+          <option value="<%= city.id %>" ><%= city.name%></option>
+        <%end%>
+      <%end%>
       </select>
-      <div class="col-md-5 col-sm-6 text-center ">
+    </div>
+
+    <div class="col-md-2 text-center  ">
+      <button type="submit" class="search-big " name="button">  <i class="glyphicon glyphicon-search"></i></button>
+    </div>
+
+    </select>
+    <div class="col-md-5 col-sm-6 text-center ">
+      <%if @district == 0%>
         <select name="district" id="district_select" style="height:40px;width:250px" >
             <option value="">Quận( Huyện)</option>
+            <% @districts.each do |district|%>
+              <option class="render_ajax" value= "<%= district.id%>" > <%= district.name%> </option>
+            <%end%>
         </select>
-      </div>
+      <%else%>
+        <select name="district" id="district_select" style="height:40px;width:250px" >
+            <option value="">Quận( Huyện)</option>
+            <% @districts.each do |district|%>
+              <%if district.id == @district.id%>
+                <option class="render_ajax" value="<%= district.id %>" selected><%= district.name%></option>
+              <%else%>
+                <option class="render_ajax" value= "<%= district.id%>" > <%= district.name%> </option>
+              <%end%>
+            <%end%>
+        </select>
+      <%end%>
+
     </div>
+  </div>
   </form>
   </fieldtest>
   <div class="box_restaurants">

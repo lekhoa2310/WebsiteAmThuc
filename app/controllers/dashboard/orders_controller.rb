@@ -43,7 +43,7 @@ class Dashboard::OrdersController < Dashboard::BaseController
     redirect_to posts_path if @order.restaurant.user_id != @current_user.id
     if @order.update_attributes(actived: 3)
       flash[:success] = "Đơn hàng hủy thành công."
-      redirect_to orders_complete_dashboard_restaurant_orders_path
+      redirect_to orders_cancel_dashboard_restaurant_orders_path
     else
       flash[:error] = "Đơn hàng chưa hoàn tất."
       render :orders_pending

@@ -40,6 +40,20 @@ $(document).ready(function () {
      });
    });
 
+  //  $('body #city_select_find_restaurant').on('change',function(){
+  //    var self = $(this);
+  //    $.ajax({
+  //      url: "/api/v1/restaurants/find_restaurants_by_city",
+  //      type: "GET",
+  //      data: {
+  //      city_id: self.find(":selected").val()
+  //      },
+  //      success: function(res){
+  //         $('body').html(res.data);
+  //      }
+  //    });
+  //  });
+
 function returnLogin(){
   var check = confirm("Bạn phải đăng nhập vào hệ thống");
   if (check){

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  before_action :current_user
+  before_action :current_user, :create_session
 
   protect_from_forgery with: :exception
 
@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   def create_session
     if !@current_user
-      session[:cart][@restaurant.id] = []
+      session[:cart] = []
     end
   end
   # def authenticate!

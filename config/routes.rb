@@ -9,6 +9,12 @@ Rails.application.routes.draw do
           get :return_districts_by_city_id
         end
       end
+
+      # resources :restaurants, only: [] do
+      #   collection do
+      #     get :find_restaurants_by_city
+      #   end
+      # end
       resources :posts, only: [] do
         member do
           post :like
@@ -107,6 +113,7 @@ Rails.application.routes.draw do
 
     collection do
       get :find_restaurant
+      get :find_restaurant_by_address
     end
   end
   resources :users do
