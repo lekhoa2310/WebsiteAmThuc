@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
   def index
     @cities = City.all
     @page = 1
-    @restaurants = Restaurant.where(actived: true).paginate(:page => params[:page], :per_page => 9)
+    @restaurants = Restaurant.where(actived: true).order('rating desc').paginate(:page => params[:page], :per_page => 9)
     @page = params[:page].to_i if params[:page].present?
   end
 
@@ -46,7 +46,12 @@ class RestaurantsController < ApplicationController
     session[:cart][@restaurant.id].each do |f|
       @total += (f['quantity'] * f['price'] )
     end
-
+    @reviews = @restaurant.reviews.order("created_at asc")
+    if @reviews.blank?
+      @avg_review = 0
+    else
+      @avg_review = @reviews.average(:rating).round(2)
+    end
   end
 
   def new_cart
@@ -59,6 +64,7 @@ class RestaurantsController < ApplicationController
   end
 
   def cart
+    redirect_to login_path if !@current_user
     total = 10000
     @restaurant = Restaurant.find_by_id params[:id]
     @order = Order.new(user_id: @current_user.id, restaurant_id: @restaurant.id,phone: params[:phone], address: params[:address])
@@ -84,6 +90,7 @@ class RestaurantsController < ApplicationController
     end
   end
 
+
   # def find_restaurant
   #   @page = 1
   #   restaurant_name = params[:restaurant_name]
@@ -101,4 +108,6 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find_by_id params[:id]
     @foods = @restaurant.foods.where(kind: "drink").paginate(:page => params[:page], :per_page => 4)
   end
+
+
 end

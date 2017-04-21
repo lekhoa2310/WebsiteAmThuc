@@ -37,6 +37,13 @@ Rails.application.routes.draw do
           post :cart
         end
       end
+
+      # resources :reviews, only: [] do
+      #   member do
+      #     delete :destroy_review
+      #   end
+      # end
+
     end
   end
 
@@ -82,6 +89,7 @@ Rails.application.routes.draw do
           get :orders_cancel
         end
 
+
         member do
           patch :accept_order
           patch :complete_ship
@@ -89,6 +97,20 @@ Rails.application.routes.draw do
         end
       end
 
+    end
+
+    resources :orders, only: [] do
+      collection do
+        get :orders_pending_user
+        get :orders_shipping_user
+        get :orders_complete_user
+        get :orders_cancel_user
+      end
+
+
+      member do
+        patch :cancel_order_user
+      end
     end
 
     resources :posts do
@@ -105,10 +127,13 @@ Rails.application.routes.draw do
   end
   # resources :comments
   resources :restaurants do
+
+    resources :reviews
     member do
       get :show_foods_drinks
-      post :new_cart
+      get :new_cart
       post :cart
+
     end
 
     collection do
@@ -121,6 +146,7 @@ Rails.application.routes.draw do
       post :change_password
     end
   end
+
 
   get"/login" => "sessions#new", as: :login
   post"/sign" => "sessions#create"

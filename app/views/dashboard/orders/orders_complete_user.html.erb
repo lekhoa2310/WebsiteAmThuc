@@ -1,0 +1,78 @@
+<nav class="navbar navbar-default sidebar" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="<%=orders_pending_user_dashboard_orders_path%>">Đơn hàng chờ duyệt<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-hourglass"></span></a></li>
+        <li ><a href="<%=orders_shipping_user_dashboard_orders_path%>">Đơn hàng chờ giao<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-download-alt"></span></a></li>
+        <li ><a href="<%=orders_complete_user_dashboard_orders_path%>">Đơn hàng đã giao<span style="font-size:16px;" class="pull-right hidden-xs showopacity  glyphicon glyphicon-ok"></span></a></li>
+        <li ><a href="<%=orders_cancel_user_dashboard_orders_path%>">Đơn hàng đã hủy<span style="font-size:16px;" class="pull-right hidden-xs showopacity  glyphicon glyphicon-remove"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="container">
+
+    <h1 class="text-center text-danger margin_bottom_50 ">Danh sách đơn đặt hàng đã hoàn thành của bạn</h1>
+    <div class="col-md-12">
+    <table class="table table-hover table-bordered" >
+      <tr style="background: pink">
+        <th>STT</th>
+        <th>Tên người đặt</th>
+        <th>Số điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Món ăn</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Tổng tiền</th>
+        <th>Thời gian đặt</th>
+      </tr>
+      <% @orders.each_with_index do |order,index| %>
+      <tr class="box-foods">
+        <%count = 1 %>
+        <% order.foods_of_orders.each do |f|
+          count +=1
+        end%>
+        <td rowspan="<%=count%>"> <%= index + 1 + (@page-1)*3  %></td>
+        <td rowspan="<%=count%>"><%= order.user.name %></td>
+        <td rowspan="<%=count%>"><%= order.phone %></td>
+        <td rowspan="<%=count%>"><%= order.address%></td>
+
+        <% first = order.foods_of_orders.first %>
+            <td><%= first.food.name%></td>
+            <td><%= first.quantity%></td>
+            <td><%= first.price%></td>
+            <td rowspan="<%=count%>"><%= order.total%></td>
+            <td rowspan="<%=count%>"><%= first.created_at.strftime("%H:%M %d/%m/%Y")%></td>
+
+        <% order.foods_of_orders.each_with_index do |food_of_order,index| %>
+          <tr class="box-foods">
+            <%if index == 0
+              next
+            end%>
+            <td><%= food_of_order.food.name%></td>
+            <td><%= food_of_order.quantity%></td>
+            <td><%= food_of_order.price%></td>
+          </tr>
+        <% end %>
+      </tr>
+
+      <% end %>
+    </table>
+
+    </div>
+
+    <div class="col-md-12">
+
+      <div class="pagination pull-right">
+        <%= will_paginate @orders , renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+  </div>

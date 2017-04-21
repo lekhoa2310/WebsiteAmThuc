@@ -1,9 +1,10 @@
-  <div class="container"><a href="<%=admin_restaurants_path%>" class="btn btn-primary">Quay lại</a></div>
+  <div class="container"><a href="<%=admin_restaurants_path%>" class="btn btn-primary margin_top_10">Quay lại</a></div>
 <h1 class="text-center text-danger margin_bottom_20 "><%=@restaurant.name %></h1>
   <div class="container">
 
     <div class="col-md-6">
       <%= image_tag @restaurant.image.url(:medium), class: "picture_center" %>
+      <div  class="text-center big-star margin_top_10"><span class="star-rating" data-score="<%= @restaurant.rating%>">  </span><i class="text-muted"> <%=  @restaurant.reviews.length%>  đánh giá</i></div>
       <h3 class="text-center">Số điện thoại: <%=@restaurant.phone%></h3>
       <h3 class="text-center">Địa chỉ: <%=@restaurant.address%>, <%=@restaurant.district.name%>, <%=@restaurant.district.city.name%></h3>
 

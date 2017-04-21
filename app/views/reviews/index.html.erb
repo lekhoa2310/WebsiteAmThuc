@@ -1,0 +1,62 @@
+
+<div class="reviews col-md-10 col-sm-offset-1">
+  <a href="<%=restaurant_path(@restaurant)%>" class="btn btn-primary margin_top_10">Quay lại</a>
+<h1 class="text-center text-danger margin_bottom_50 ">Đánh giá <%=@restaurant.name %></h1>
+  <div class="container">
+    <div class="col-md-5">
+      <%= image_tag @restaurant.image.url(:medium), class: "picture_center" %>
+      <table class="col-md-8 col-sm-offset-2 margin_top_20">
+        <tr>
+          <td>  <p class="">Số điện thoại</p></td>
+          <td>  <p class=""><%=@restaurant.phone%></p></td>
+        </tr>
+        <tr>
+          <td>  <p class="">Địa chỉ</p></td>
+          <td>  <p class=""><%=@restaurant.address%>, <%=@restaurant.district.name%>, <%=@restaurant.district.city.name%></p></td>
+        </tr>
+        <tr>
+          <td>  <p  >Đánh giá</p></td>
+          <td>  <div class="star-rating" data-score="<%=@restaurant.rating%>">  </div> <em><%= @restaurant.reviews.length %> đánh giá</em></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-7">
+      <%if @current_user%>
+        <a href="<%=new_restaurant_review_path(@restaurant)%>" data-method="get" class="">Viết đánh giá...</a>
+      <%else%>
+        <a class=" return-login">Viết đánh giá...</a>
+      <%end%>
+      <ul class="list-reviews list-unstyled ">
+        <% @reviews.each do |review| %>
+        <div class="review-item row ">
+          <li class="box-review  col-md-10 margin_top_20 row">
+              <div class="col-md-6">
+                <span class="text-primary text-strong"> <%= image_tag review.user.avatar.url(:avatar), class: " avatar_picture" %> <%= review.user.name %> </span>  <span class="text-muted"> <%= review.updated_at.strftime("at %I:%M%p %d/%m/%Y")%></span><p class="star-rating" data-score="<%= review.rating %>"> </p>
+              </div>
+
+              <div class="col-md-6 btn-delete">
+              <% if @current_user%>
+                <%if @current_user.id == review.user.id || @current_user.is_admin? %>
+                  <a href= "<%=restaurant_review_path(@restaurant.id, review.id)%>" data-method="delete" data-confirm=" Bạn có muốn xóa đánh giá"class="text-danger delete-review"  >x</a>
+                <%end%>
+              <%end%>
+              </div>
+              <div class="col-md-12">
+                <p>
+                   <%= review.content %>
+                </p>
+              </div>
+          </li>
+        </div>
+        <% end%>
+        <div class="container col-md-10">
+          <div class="pagination pull-right">
+            <%= will_paginate @reviews , renderer: BootstrapPagination::Rails %>
+          </div>
+        </div>
+      </ul>
+
+    </div>
+
+  </div>
+</div>

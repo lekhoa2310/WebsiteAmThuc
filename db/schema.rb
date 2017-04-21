@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412033227) do
+ActiveRecord::Schema.define(version: 20170419020646) do
 
   create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -99,15 +99,27 @@ ActiveRecord::Schema.define(version: 20170412033227) do
     t.string   "name"
     t.string   "address"
     t.string   "phone"
-    t.boolean  "actived",            default: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.boolean  "actived",                       default: false
+    t.float    "rating",             limit: 24
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.index ["district_id"], name: "index_restaurants_on_district_id", using: :btree
     t.index ["user_id"], name: "index_restaurants_on_user_id", using: :btree
+  end
+
+  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.float    "rating",        limit: 24
+    t.string   "content"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
   end
 
   create_table "staffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

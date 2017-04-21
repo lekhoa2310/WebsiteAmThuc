@@ -47,7 +47,9 @@
       <div class="col-md-4 box_restaurant_index margin_bottom_50">
 
         <a href="<%=restaurant_path(restaurant)%>"><%= image_tag restaurant.image.url(:medium), class: "picture_center" %></a>
+        <div  class="text-center big-star margin_top_10"><span class="star-rating" data-score="<%=restaurant.rating%>">  </span><i class="text-muted"> <%= restaurant.reviews.length %> đánh giá</i></div>
         <a href="<%=restaurant_path(restaurant)%>"><h3 class="text-center text-danger"><%=restaurant.name%></h3></a>
+        <h3 class="text-center">Số điện thoại: <%=restaurant.phone%></h3>
         <h4 class="text-center">Địa chỉ: <%=restaurant.address%>, <%=restaurant.district.name%>, <%=restaurant.district.city.name%></h4>
 
       </div>

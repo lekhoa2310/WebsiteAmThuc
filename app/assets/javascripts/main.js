@@ -258,6 +258,22 @@ $('body').on('click', '.delete-reply',function(event){
   }
 });
 
+//delete review
+// $('body').on('click', '.delete-review',function(event){
+//   var check = confirm("Bạn có muốn xóa đánh giá không");
+//   if (check) {
+//     var self = $(this);
+//     $.ajax({
+//       url: "/restaurants/"+ self.attr('data-restaurant')+  "/reviews/" + self.attr('data-review'),
+//       type: "delete",
+//       success: function(res){
+//         if(res.success){
+//           self.parents('.box-review').remove();
+//         }
+//       }
+//     });
+//   }
+// });
 //chọn đồ ăn muốn đặt
 $('.box_foods_index').on('click', '.choose-food', function(event){
   var self = $(this);
@@ -355,4 +371,16 @@ $('.box_foods_index').on('click', '.cancel-food', function(event){
   });
 });
 
+$('.star-rating').raty({
+  path: '/assets/',
+  readOnly: true,
+  score: function() {
+    return $(this).attr('data-score');
+  }
+});
+
+$('#star-rating').raty({
+  path: '/assets/',
+  scorename: 'review[rating]'
+});
 });

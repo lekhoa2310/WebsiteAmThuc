@@ -3,10 +3,10 @@ class Dashboard::OrdersController < Dashboard::BaseController
 
   def orders_pending
     @page = 1
-    @orders = Order.where('(actived = ? AND restaurant_id = ?)', 0, @restaurant.id).order('created_at asc').paginate(:page => params[:page], :per_page => 5)
+    @orders = Order.where('(actived = ? AND restaurant_id = ?)', 0, @restaurant.id).order('updated_at asc').paginate(:page => params[:page], :per_page => 5)
     @page =  params[:page].to_i if params[:page].present?
-
   end
+
 
   def accept_order
     @order = Order.find_by_id params[:id]
@@ -61,6 +61,44 @@ class Dashboard::OrdersController < Dashboard::BaseController
     @orders = Order.where('(actived = ? AND restaurant_id = ?)', 3, @restaurant.id).paginate(:page => params[:page], :per_page => 5)
     @page =  params[:page].to_i if params[:page].present?
   end
+
+
+  def orders_pending_user
+    @page = 1
+    @orders = Order.where('(actived = ? AND user_id = ?)', 0, @current_user.id).order('restaurant_id desc').paginate(:page => params[:page], :per_page => 5)
+    @page =  params[:page].to_i if params[:page].present?
+  end
+
+  def orders_shipping_user
+    @page = 1
+    @orders = Order.where('(actived = ? AND user_id = ?)', 1, @current_user.id).order('restaurant_id desc').paginate(:page => params[:page], :per_page => 5)
+    @page =  params[:page].to_i if params[:page].present?
+  end
+
+  def orders_complete_user
+    @page = 1
+    @orders = Order.where('(actived = ? AND user_id = ?)', 2, @current_user.id).order('restaurant_id desc').paginate(:page => params[:page], :per_page => 5)
+    @page =  params[:page].to_i if params[:page].present?
+  end
+
+  def cancel_order_user
+    @order = Order.find_by_id params[:id]
+    redirect_to posts_path if @order.user.id != @current_user.id
+    if @order.update_attributes(actived: 3)
+      flash[:success] = "Đơn hàng hủy thành công."
+      redirect_to orders_cancel_user_dashboard_orders_path
+    else
+      flash[:error] = "Đơn hàng chưa hoàn tất."
+      render :orders_pending
+    end
+  end
+
+  def orders_cancel_user
+    @page = 1
+    @orders = Order.where('(actived = ? AND user_id = ?)', 3, @current_user.id).order('restaurant_id desc').paginate(:page => params[:page], :per_page => 5)
+    @page =  params[:page].to_i if params[:page].present?
+  end
+
 
   private
 
