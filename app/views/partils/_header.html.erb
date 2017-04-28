@@ -1,28 +1,5 @@
-<nav class="navbar navbar-default">
+<!-- <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <!-- <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
-    </div> -->
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-      <ul class="nav navbar-nav navbar-right">
-        <% if @current_user %>
-        <li><a href="<%= edit_user_path(@current_user.id) %>"> <%= @current_user.name %></a></li>
-        <li class="active"><a href="<%= logout_path %>">Logout <span class="sr-only">(current)</span></a></li>
-        <% else %>
-        <li class="active"><a href="<%= login_path %>">Login <span class="sr-only">(current)</span></a></li>
-        <% end %>
-      </ul>
-    </div><!-- /.navbar-collapse --> -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -30,20 +7,13 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a href="<%= admin_users_path%>">ẨM THỰC 3 MIỀN</a></li>
             </ul>
-          <!-- <img src="images/favicon.ico" alt=""> -->
           </div>
-          <!-- <a class="navbar-brand" href="#myPage">Logo</a> -->
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<%= posts_path%>">TRANG CHỦ</a></li>
             <li><a href="<%=restaurants_path%>">CỬA HÀNG</a></li>
-            <!-- <li><a href="#soccer-system">MÓN ĂN</a></li> -->
-            <li><a href="#">TÌM KIẾM</a></li>
-            <!-- <li><a href="#">QUẢN LÝ BÀI VIẾT</a></li> -->
             <% if @current_user %>
-            <!-- <li><a href="#"><%= image_tag @current_user.avatar.url(:avatar), class: " avatar_picture" %> </a></li> -->
-
             <li  role="presentation" class="dropdown avatar-li">
               <%if @current_user.is_admin?%>
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag @current_user.avatar.url(:avatar), class: " avatar_picture" %>  ADMIN <%= @current_user.name.upcase %> <span class="caret"></a>
@@ -74,5 +44,48 @@
         </div>
       </div>
     </nav>
-  </div><!-- /.container-fluid -->
+  </div>
+</nav> -->
+
+<div id="navbar_primary">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header ">
+      <a class="logo"  href="<%= posts_path%>"><img src="/assets/logo.png" alt=""></a>
+      <a class="navbar-brand " href="<%= posts_path%>">ẨM THỰC 3 MIỀN</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<%= posts_path%>">TRANG CHỦ</a></li>
+        <li><a href="<%=restaurants_path%>">CỬA HÀNG</a></li>
+        <!-- <li><a href="<%=posts_path%>#contact">LIÊN HỆ</a></li> -->
+        <% if @current_user %>
+        <li role="presentation" class="dropdown avatar-li">
+          <%if @current_user.is_admin?%>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag @current_user.avatar.url(:avatar), class: " avatar_picture" %>  ADMIN <%= @current_user.name.upcase %> <span class="caret"></a>
+          <%else%>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <%= image_tag @current_user.avatar.url(:avatar), class: " avatar_picture" %> <%= @current_user.name.upcase %> <span class="caret"></a>
+          <%end%>
+          <ul class="dropdown-menu nav navbar-nav">
+            <li> <a href="<%= edit_user_path(@current_user.id) %>">QUẢN LÝ THÔNG TIN CÁ NHÂN</a> </li>
+            <%if @current_user.is_admin?%>
+              <li><a href="<%= admin_users_path %>">QUẢN LÝ CÁC TÀI KHOẢN</a></li>
+              <li> <a href="<%= admin_restaurants_path%>">QUẢN LÝ CÁC CỬA HÀNG</a> </li>
+              <li> <a href="<%= admin_posts_path%>">QUẢN LÝ CÁC BÀI ĐĂNG </a> </li>
+            <%else%>
+              <li> <a href="<%= dashboard_restaurants_path%>">QUẢN LÝ CỬA HÀNG</a> </li>
+              <li> <a href="<%= dashboard_posts_path%>">QUẢN LÝ BÀI ĐĂNG</a> </li>
+              <li> <a href="<%= orders_pending_user_dashboard_orders_path%>">QUẢN LÝ ĐẶT HÀNG</a> </li>
+            <%end%>
+          </ul>
+        </li>
+
+        <li class="active"><a href="<%= logout_path %>">ĐĂNG XUẤT <span class="sr-only">(current)</span></a></li>
+        <% else %>
+        <li class="active"><a href="<%= login_path %>">ĐĂNG NHẬP<span class="sr-only">(current)</span></a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </nav>
+</div>

@@ -1,13 +1,56 @@
 
+body {
+  background-image: url('/assets/background2.jpg');
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+body > .container{
+  margin-top: 60px;
+}
+.navbar-header > .logo{
+  float: left;
+}
+.logo{
+  width:50px !important;
+  height: 50px !important;
+}
+.logo img{
+  width: 100%;
+  height: 100%;
+  display: block;
+
+}
+
+#contact{
+  background: url('/assets/contact-bg.jpg');
+  color: #fff;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  display: block;
+}
+footer {
+    background-color: #2d2d30;
+    color: #f5f5f5;
+    padding: 32px;
+}
+footer a {
+    color: #f5f5f5;
+}
+footer a:hover {
+    color: #777;
+    text-decoration: none;
+}
 .btn-group{
   padding-top: 50px;
 }
 .navbar {
   min-height: auto;
   margin-bottom: 0px;
+  /*background-color: #2d2d30;*/
 }
 h1{
   margin-top:50px;
+  color: #a94442;
 }
 .margin_bottom_10 {
   margin-bottom: 10px;
@@ -20,6 +63,9 @@ h1{
 }
 .margin_left_10{
   margin-left: 10px;
+}
+.margin_top_70{
+  margin-top: 70px;
 }
 .margin_top_20{
   margin-top: 20px;
@@ -54,6 +100,14 @@ h1{
       }
 .box_restaurant_index{
   min-height: 450px;
+  /*border-radius: 5px;*/
+}
+.box_restaurants > .col-md-4{
+  background-color: transparent;
+}
+/*dashboard*/
+.box-restaurants{
+  background-color: white;
 }
 .cart, .reviews{
   background-color: #ffffff;
@@ -63,6 +117,10 @@ h1{
 .box_foods_index{
   padding-top: 10px;
   min-height: 200px;
+}
+/*dashboard*/
+.box-foods{
+  background-color: white;
 }
 .picture_small{
   min-height: 50px;
@@ -79,6 +137,7 @@ h1{
   height: 23px;
   width: 23px;
 }
+/*avatar circle*/
 .avatar_picture , .avatar_reply, .avatar_post{
 
   margin-top: -7px;
@@ -96,7 +155,8 @@ h1{
 }
 
 /*sidebar*/
-/*.mini-submenu{
+
+.mini-submenu{
   display:none;
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0.9);
@@ -128,7 +188,7 @@ h1{
   padding: 0 8px;
   border-radius: 4px;
   cursor: pointer;
-}*/
+}
 body,html{
     /*height: 100%;*/
   }
@@ -256,16 +316,21 @@ body,html{
 /*sidebar*/
 body{
   background-color: #f5f5f5;
-  margin-top: 30px;
+  /*margin-top: 30px;*/
 }
 
 body .background_content{
    background-color: #ffffff;
    padding-right: 0px;
 }
+/*admin*/
+.box-user{
+  background-color: white;
+}
 .post-item{
    position: relative;
    background-color: #ffffff;
+  border: 10px solid #f5f5f5;
    padding: 10px;
    margin-bottom: 10px;
 }
@@ -297,6 +362,7 @@ body .background_content{
   right: 0px;
   top:0px;
 }
+
 .box_foods_index, .box_restaurant_index{
   background-color: #ffffff;
   padding: 10px;
@@ -305,6 +371,10 @@ body .background_content{
 }
 .box-post .post-content{
   max-width: 300px;
+}
+/*dashboard*/
+.box-post{
+  background-color: white;
 }
 .icon-plus, .icon-minus{
   font-size: 70%;
@@ -337,3 +407,144 @@ body .background_content{
   width:20px;
   height: 20px;
 }*/
+
+.main-text
+{
+    position: absolute;
+    top: 50px;
+    width: 96.66666666666666%;
+    color: #FFF;
+}
+.btn-min-block
+{
+    min-width: 170px;
+    line-height: 26px;
+}
+.btn-clear
+{
+    color: #FFF;
+    background-color: transparent;
+    border-color: #FFF;
+    margin-right: 15px;
+}
+.btn-clear:hover
+{
+    color: #000;
+    background-color: #FFF;
+}
+
+
+/*
+Fade content bs-carousel with hero headers
+Code snippet by maridlcrmn (Follow me on Twitter @maridlcrmn) for Bootsnipp.com
+Image credits: unsplash.com
+*/
+
+/********************************/
+/*       Fade Bs-carousel       */
+/********************************/
+.fade-carousel {
+    position: relative;
+    height: 100vh;
+}
+.fade-carousel .carousel-inner .item {
+    height: 100vh;
+}
+.fade-carousel .carousel-indicators > li {
+    margin: 0 2px;
+    background-color: #f39c12;
+    border-color: #f39c12;
+    opacity: .7;
+}
+.fade-carousel .carousel-indicators > li.active {
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+
+/********************************/
+/*       Slides backgrounds     */
+/********************************/
+.button-index{
+  padding-top: 20px;
+}
+.button-index a{
+  background: transparent;
+  padding: 10px 30px;
+  border: 1px solid #e0e0d1;
+  color: white;
+}
+.button-index a:hover{
+  background-color: #f7ca18;
+}
+#myCarousel .item.active p, #myCarousel .item.active h1{
+  font-size: 60px;
+  color: yellow;
+  padding-bottom: 20px;
+}
+#myCarousel .item.active span{
+  color: white;
+  font-size: 18px;
+  padding-bottom: 150px;
+}
+#myCarousel .item{
+  max-height:700px;
+}
+.carousel-inner img {
+    width: 100%;
+    margin: auto;
+}
+.carousel-caption{
+  bottom:300px;
+}
+.carousel-caption  {
+
+  }
+   /*h3 {
+    color: #fff !important;
+
+}*/
+@media (max-width: 600px) {
+  .carousel-caption {
+    display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+  }
+}
+
+
+/*nav*/
+#navbar_primary .navbar {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    /*font-size: 11px !important;*/
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+#navbar_primary .navbar-header{
+  font-size: 20px !important;
+}
+#navbar_primary .navbar li a, .navbar .navbar-brand {
+    color: #d5d5d5 !important;
+}
+#navbar_primary .navbar-nav li a:hover {
+    color: #fff !important;
+}
+#navbar_primary .navbar-nav li.active a {
+    color: #fff !important;
+    background-color: #29292c !important;
+}
+#navbar_primary .navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+#navbar_primary .dropdown-menu li{
+  min-width: 265px;
+}
+#navbar_primary .dropdown-menu li a {
+    color: #000 !important;
+    /*font-size: 11px !important;*/
+}
+#navbar_primary .dropdown-menu li a:hover {
+    background-color: black !important;
+}

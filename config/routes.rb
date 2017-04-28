@@ -19,6 +19,11 @@ Rails.application.routes.draw do
         member do
           post :like
         end
+
+        collection do
+          get :more_post
+        end
+        
       end
       resources :comments do
         member do

@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
       end
     else
       # flash[:error] = "Email or password invalid."
-        flash[:error] = "Email hoặc mật khẩu không chính xác."
+      flash[:error] = "Email hoặc mật khẩu không chính xác."
       render :new
     end
   end

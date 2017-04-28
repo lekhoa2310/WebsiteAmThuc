@@ -1,7 +1,6 @@
 
 <div class="container">
   <div class="col-md-8 col-sm-offset-2 background_content">
-
     <div class="post-item ">
     <% if @current_user %>
       <%if @current_user.id == @post.user_id%>
@@ -64,14 +63,14 @@
           <% @post.comments.each do |comment| %>
           <div class="comment-item row ">
             <li class="box-comment  col-md-12 margin_top_20 row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                   <span class="text-primary text-strong"> <%= image_tag comment.user.avatar.url(:avatar), class: " avatar_picture" %> <%= comment.user.name %>:</span> <%= comment.content %>
                   <div class=" col-md-12  box-replies">
                     <a class="reply-comment" data-target="<%=comment.id%>" >Hiện <span class="count-replies"> <%= reply = Comment.where(comment_id: comment.id).count%> </span>trả lời</a>
                     <div class="replies"></div>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                 <% if @current_user%>
                   <%if @current_user.id == comment.user.id%>
                     <span data-target="<%= comment.id %>" class="text-danger delete-comment"  >x</span>

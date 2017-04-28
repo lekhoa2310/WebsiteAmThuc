@@ -1,8 +1,6 @@
 <div class="container">
 
 
-
-
     <div class="col-md-12 row">
       <div class="margin_top_10 form-group col-md-6 row">
         <form class="navbar-form" role="search" action="/restaurants/find_restaurant" method="get">
@@ -18,10 +16,10 @@
 
   <h1 class="text-center text-danger margin_bottom_50 ">Danh sách các cửa hàng</h1>
   <fieldtest>
-  <form class="" action="<%= find_restaurant_by_address_restaurants_path %>" method="get">
+  <form class="" action="<%= find_restaurant_by_address_restaurants_path %>" method="get" >
     <div class=" col-sm-8 col-sm-offset-2" style="margin-bottom:80px;">
-      <div class="text-center col-md-5 col-sm-6">
-        <select name="city" id="city_select" style="height:40px;width:250px"  required ="requied">
+      <div class="text-center col-md-3 col-sm-4">
+        <select name="city" id="city_select" style="height:40px;width:170px"  >
           <option value="" >Thành phố</option>
           <% @cities.each do |city| %>
             <option value="<%= city.id %>"><%= city.name%></option>
@@ -29,32 +27,48 @@
         </select>
       </div>
 
-      <div class="col-md-2 text-center  ">
-        <button type="submit" class="search-big " name="button">  <i class="glyphicon glyphicon-search"></i></button>
-      </div>
+
 
       </select>
-      <div class="col-md-5 col-sm-6 text-center ">
-        <select name="district" id="district_select" style="height:40px;width:250px" >
+      <div class="col-md-3 col-sm-4 text-center ">
+        <select name="district" id="district_select" style="height:40px;width:170px" >
             <option value="">Quận( Huyện)</option>
         </select>
       </div>
+
+      <div class="col-md-3 col-sm-4 text-center ">
+        <select name="arrange" id="district_select" style="height:40px;width:170px" >
+            <option value="">Sắp xếp</option>
+            <option value="rating">Đánh giá</option>
+            <option value="created_at">Mới nhất</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 text-center  ">
+        <button type="submit" class="search-big " name="button">  <i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+
+    <div>
+
     </div>
   </form>
   </fieldtest>
+
   <div class="box_restaurants">
     <% @restaurants.each do |restaurant|%>
-      <div class="col-md-4 box_restaurant_index margin_bottom_50">
-
+      <div class="col-md-4 margin_bottom_50">
+        <div class=" box_restaurant_index">
         <a href="<%=restaurant_path(restaurant)%>"><%= image_tag restaurant.image.url(:medium), class: "picture_center" %></a>
         <div  class="text-center big-star margin_top_10"><span class="star-rating" data-score="<%=restaurant.rating%>">  </span><i class="text-muted"> <%= restaurant.reviews.length %> đánh giá</i></div>
         <a href="<%=restaurant_path(restaurant)%>"><h3 class="text-center text-danger"><%=restaurant.name%></h3></a>
-        <h3 class="text-center">Số điện thoại: <%=restaurant.phone%></h3>
+        <h4 class="text-center">Số điện thoại: <%=restaurant.phone%></h4>
         <h4 class="text-center">Địa chỉ: <%=restaurant.address%>, <%=restaurant.district.name%>, <%=restaurant.district.city.name%></h4>
-
+        </div>
       </div>
     <%end%>
   </div>
+
    <div class="pagination pull-right">
      <%= will_paginate @restaurants , renderer: BootstrapPagination::Rails %>
    </div>

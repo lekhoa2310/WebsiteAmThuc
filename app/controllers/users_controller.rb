@@ -17,6 +17,7 @@ class UsersController < ApplicationController
       if  @user.save
         # flash[:success] = "Registration successfully"
         flash[:success] = "Đăng ký thành công"
+        
         redirect_to login_path
       else
         render :new

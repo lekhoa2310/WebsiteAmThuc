@@ -6,6 +6,10 @@ $(document).ready(function () {
      format: "yyyy-mm-dd"
    });
 
+
+   setTimeout(function(){
+      $('.alert').remove();
+    }, 2000);
    //sidebar
   //  $(function(){
    //
@@ -66,7 +70,7 @@ function returnLogin(){
     });
 
 //like bài post
-   $('.post-like').click(function(event){
+   $('body ').on('click', '.post-like',function(event){
      var self = $(this);
      $.ajax({
        url: $(this).attr("data-target"),
@@ -291,7 +295,7 @@ $('.box_foods_index').on('click', '.choose-food', function(event){
         self.remove();
         $('.cart .foods-of-order').append(
         '<div class="row">\
-          <div class=" col-md-12 food'+ res.data.food_id+'">\
+          <div class=" col-md-12 food_of_order food'+ res.data.food_id+'">\
             <div class="col-md-4 ">\
               <p>'+ res.data.food_name+'</p>\
             </div>\
@@ -309,7 +313,7 @@ $('.box_foods_index').on('click', '.choose-food', function(event){
     }
   });
 });
-
+//tăng số lượng
 $('body').on('click', '.icon-plus', function(event){
   var self = $(this);
   $.ajax({
@@ -325,6 +329,7 @@ $('body').on('click', '.icon-plus', function(event){
   })
 });
 
+//giảm số lượng
 $('body').on('click', '.icon-minus', function(event){
   var self = $(this);
   $.ajax({
@@ -348,7 +353,7 @@ $('body').on('click', '.icon-minus', function(event){
   })
 });
 
-
+//Hủy món
 $('.box_foods_index').on('click', '.cancel-food', function(event){
   var self = $(this);
   $.ajax({
@@ -371,16 +376,63 @@ $('.box_foods_index').on('click', '.cancel-food', function(event){
   });
 });
 
-$('.star-rating').raty({
-  path: '/assets/',
-  readOnly: true,
-  score: function() {
-    return $(this).attr('data-score');
+//kiểm tra có thêm gì vào giỏ hàng không
+$('body').on('click', '.enter_cart', function(event){
+  var self = $(this);
+
+  if(self.parents('.cart').find('.food_of_order').length == 0){
+    $('body').prepend('\
+    <div class="col-md-12 alert alert-danger">\
+      <li>Bạn chưa chọn thức ăn vào giỏ hàng</li>\
+    </div>\
+    ');
+    event.preventDefault();
+    return false;
+  }else{
+
   }
 });
+// review
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
 
-$('#star-rating').raty({
-  path: '/assets/',
-  scorename: 'review[rating]'
+  $('#star-rating').raty({
+    path: '/assets/',
+    scorename: 'review[rating]'
+  });
+
+// scroll post
+var loadding = false;
+var nearToBottom = 50;
+var page = 2
+$(document).scroll(function(){
+  console.log("tuan");
+  if (loadding) return ;
+  if ($(window).scrollTop() + $(window).height() >
+      $(document).height() - nearToBottom) {
+        loadding = true;
+        console.log("khoa");
+        $.ajax({
+          url: "/api/v1/posts/more_post",
+          type: "get",
+          data: {
+            "page": page
+          },
+          success: function(res){
+              $('.box-posts').append(res.data);
+              page += 1 ;
+              loadding = false;
+          }
+        });
+  };
 });
+
+
+
+
 });

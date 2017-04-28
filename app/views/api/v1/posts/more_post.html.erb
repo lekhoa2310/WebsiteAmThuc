@@ -1,0 +1,41 @@
+<% @posts.each do |post| %>
+  <div class="post-item">
+    <% if @current_user %>
+      <%if @current_user.id == post.user_id || @current_user.is_admin?%>
+        <div class="dropdown option">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="glyphicon glyphicon-pencil"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="<%= post_path(post)%>">Xem</a></li>
+          <li><a class="dropdown-item" href="<%= edit_post_path(post)%>">Sửa</a></li>
+          <li><a class="dropdown-item " href="<%= post_path(post)%> "data-method="delete" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a></li>
+          </div>
+        </div>
+      <%end%>
+    <%end%>
+    <h3> <%= image_tag post.user.avatar.url(:avatar), class: " avatar_post" %> <span class="text-primary text-strong"><%= post.user.name%></span> <span href="<%= post_path(post)%>" > <%= post.title %></span></h3>
+    <p class="text-muted"> <%= post.created_at.strftime("at %I:%M%p %d/%m/%Y")%></p>
+    <div class="margin_bottom_10">
+      <%= post.content %>
+    </div>
+
+    <%if @current_user%>
+      <%like = post.likes.where(user_id: @current_user.id).first%>
+      <!-- <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><%= like.try(:isLike) ? "Không thích" : "Thích"%></button> -->
+      <%if like.try(:isLike)%>
+        <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-primary post-like"><i class="glyphicon glyphicon glyphicon-heart"></i> Thích   </button>
+      <%else%>
+        <button data-target="<%= like_api_v1_post_path(post.id) %>"  data-method ="post" class="btn btn-default post-like"><i class="glyphicon glyphicon glyphicon-heart"></i> Thích</button>
+      <%end%>
+    <%else%>
+      <button class="btn btn-primary return-login"><i class="glyphicon glyphicon-heart"></i> Thích</button>
+    <%end%>
+    <a href="<%=post_path(post)%>" class="btn btn-success"><i class="glyphicon glyphicon-comment"></i> Bình luận (<%= post.comments.count%>) </a>
+    <p class="view-like text-primary">
+      <%= post.likes.where(isLike: true).count %> người thích nội dung này
+    </p>
+  </div>
+
+
+<%end %>

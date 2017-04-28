@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
   def index
     @cities = City.all
     @page = 1
-    @restaurants = Restaurant.where(actived: true).order('rating desc').paginate(:page => params[:page], :per_page => 9)
+    @restaurants = Restaurant.where(actived: true).paginate(:page => params[:page], :per_page => 9)
     @page = params[:page].to_i if params[:page].present?
   end
 
@@ -22,20 +22,48 @@ class RestaurantsController < ApplicationController
   end
 
   def find_restaurant_by_address
-    return redirect_to restaurants_path if params[:city] == "city"
-    @cities = City.all
-    @city = City.find_by_id params[:city]
-    @districts = @city.districts
-    @district = 0
+    @arrange = params[:arrange]
+    if params[:city].blank?
+      @address = false
+      @cities = City.all
+      if params[:arrange].blank?
+        @restaurants = Restaurant.where(:actived => 1).paginate(:page => params[:page], :per_page => 9)
+      else
+        if params[:arrange] == "rating"
+          @restaurants = Restaurant.where(:actived => 1).order(@arrange + ' desc').paginate(:page => params[:page], :per_page => 9)
+        else
+          @restaurants = Restaurant.where(:actived => 1).order(@arrange + ' desc').paginate(:page => params[:page], :per_page => 9)
+        end
+      end
 
-    @page = 1
-    if params[:district].blank?
-      @restaurants = @city.restaurants.where(:actived => 1).paginate(:page => params[:page], :per_page => 9)
     else
-      @district = District.find_by_id params[:district]
-      @restaurants = @district.restaurants.where(:actived => 1).paginate(:page => params[:page], :per_page => 9)
+      @address = true
+      return redirect_to restaurants_path if params[:city] == "city"
+      @cities = City.all
+      @city = City.find_by_id params[:city]
+      @districts = @city.districts
+      @district = 0
+
+      @page = 1
+      if params[:district].blank?
+        if @arrange.blank?
+          @restaurants = @city.restaurants.where(:actived => 1).paginate(:page => params[:page], :per_page => 9)
+        else
+          @restaurants = @city.restaurants.where(:actived => 1).order(@arrange + ' desc').paginate(:page => params[:page], :per_page => 9)
+        end
+
+      else
+        @district = District.find_by_id params[:district]
+        if @arrange.blank?
+          @restaurants = @district.restaurants.where(:actived => 1).paginate(:page => params[:page], :per_page => 9)
+        else
+          @restaurants = @district.restaurants.where(:actived => 1).order(@arrange + ' desc').paginate(:page => params[:page], :per_page => 9)
+        end
+
+      end
+      @page = params[:page].to_i if params[:page].present?
     end
-    @page = params[:page].to_i if params[:page].present?
+
   end
 
   def show
@@ -58,9 +86,13 @@ class RestaurantsController < ApplicationController
     redirect_to login_path if !@current_user
     @restaurant = Restaurant.find_by_id params[:id]
     @total = 10000
-    session[:cart][@restaurant.id].each do |f|
-      @total += (f['quantity'] * f['price'] )
-    end
+    # session[:cart][@restaurant.id].each do |f|
+    #   @total += (f['quantity'] * f['price'] )
+    # end
+    # if @total = 10000
+    #   flash[:error] = "Bạn chưa chọn món vào giỏ hàng"
+    #   redirect_to restaurant_path(@restaurant)
+    # end
   end
 
   def cart

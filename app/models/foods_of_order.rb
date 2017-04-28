@@ -6,4 +6,5 @@ class FoodsOfOrder < ApplicationRecord
   validates :price, presence: true
 
   belongs_to :food
+  belongs_to :order
 end
