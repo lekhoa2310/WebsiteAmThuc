@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :check_user, except: [:index, :show, :find_post]
   before_action :find_post_by_id, only: [:edit, :update, :show, :destroy, :like]
   def index
+
     @posts = Post.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
     respond_to do |format|
       format.html
@@ -44,7 +45,7 @@ class PostsController < ApplicationController
   def update
     if @post.update_attributes(post_params)
       flash[:success]= "Bạn vừa sửa bài viết thành công"
-      redirect_to posts_path
+      redirect_to dashboard_posts_path
     else
       render :edit
     end
@@ -65,6 +66,10 @@ class PostsController < ApplicationController
     else
       render :index
     end
+  end
+
+  def contact
+
   end
 
   # def like

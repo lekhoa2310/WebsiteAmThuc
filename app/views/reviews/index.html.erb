@@ -1,4 +1,4 @@
-
+<div class="container">
 <div class="reviews col-md-10 col-sm-offset-1">
   <a href="<%=restaurant_path(@restaurant)%>" class="btn btn-primary margin_top_10">Quay lại</a>
 <h1 class="text-center text-danger margin_bottom_50 ">Đánh giá <%=@restaurant.name %></h1>
@@ -34,14 +34,14 @@
                 <span class="text-primary text-strong"> <%= image_tag review.user.avatar.url(:avatar), class: " avatar_picture" %> <%= review.user.name %> </span>  <span class="text-muted"> <%= review.updated_at.strftime("at %I:%M%p %d/%m/%Y")%></span><p class="star-rating" data-score="<%= review.rating %>"> </p>
               </div>
 
-              <div class="col-md-6 btn-delete">
+              <div class="col-md-4 btn-delete">
               <% if @current_user%>
                 <%if @current_user.id == review.user.id || @current_user.is_admin? %>
                   <a href= "<%=restaurant_review_path(@restaurant.id, review.id)%>" data-method="delete" data-confirm=" Bạn có muốn xóa đánh giá"class="text-danger delete-review"  >x</a>
                 <%end%>
               <%end%>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-10">
                 <p>
                    <%= review.content %>
                 </p>
@@ -49,7 +49,7 @@
           </li>
         </div>
         <% end%>
-        <div class="container col-md-10">
+        <div class="container col-md-8">
           <div class="pagination pull-right">
             <%= will_paginate @reviews , renderer: BootstrapPagination::Rails %>
           </div>
@@ -59,4 +59,5 @@
     </div>
 
   </div>
+</div>
 </div>

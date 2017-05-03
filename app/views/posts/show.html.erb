@@ -16,7 +16,7 @@
         </div>
       <%end%>
     <%end%>
-      <h3 class="text-danger"> <%= image_tag @post.user.avatar.url(:avatar), class: " avatar_post" %> <span class="text-primary text-strong"><%= @post.user.name%>:</span> <%= @post.title %></h3>
+      <h3 class="text-danger"> <%= image_tag @post.user.avatar.url(:big), class: " avatar_post" %> <span class="text-primary text-strong"><%= @post.user.name%>:</span> <%= @post.title %></h3>
     <div class="margin_bottom_10">
       <%= @post.content %>
     </div>

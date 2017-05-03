@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         collection do
           get :more_post
         end
-        
+
       end
       resources :comments do
         member do
@@ -128,6 +128,7 @@ Rails.application.routes.draw do
   resources :posts do
     collection do
       get :find_post
+      get :contact
     end
   end
   # resources :comments

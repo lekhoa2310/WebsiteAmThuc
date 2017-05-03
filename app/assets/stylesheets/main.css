@@ -21,12 +21,15 @@ body > .container{
 
 }
 
-#contact{
+/*#contact{
   background: url('/assets/contact-bg.jpg');
   color: #fff;
   background-attachment: fixed;
   background-size: 100% 100%;
   display: block;
+}*/
+#contact {
+  font-size: 18px;
 }
 footer {
     background-color: #2d2d30;
@@ -194,8 +197,9 @@ body,html{
   }
 .sidebar{
     margin-top: 10px;
-    position: absolute;
+    position: fixed;
     z-index: 5000;
+
 }
   nav.sidebar, .main{
     -webkit-transition: margin 200ms ease-out;
@@ -327,10 +331,14 @@ body .background_content{
 .box-user{
   background-color: white;
 }
+.background_content{
+  border: 10px solid #f5f5f5;
+}
+
 .post-item{
    position: relative;
    background-color: #ffffff;
-  border: 10px solid #f5f5f5;
+  /*border: 10px solid #f5f5f5;*/
    padding: 10px;
    margin-bottom: 10px;
 }

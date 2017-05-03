@@ -8,8 +8,19 @@ class ReviewsController < ApplicationController
   end
 
   def new
+
     redirect_to login_path if !@current_user
     @restaurant = Restaurant.find_by_id params[:restaurant_id]
+    if @last_review = Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).nil?
+
+    else
+      if @last_review = Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).order('created_at desc').first.created_at > Time.now - 1.days
+        flash[:error] = "Hôm nay bạn đã đánh giá cho cửa hàng #{@restaurant.name}"
+        redirect_to restaurant_reviews_path(@restaurant)
+      else
+
+      end
+    end
   end
 
   def create

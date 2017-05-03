@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 
    setTimeout(function(){
-      $('.alert').remove();
+      $('body .alert').remove();
     }, 2000);
    //sidebar
   //  $(function(){
@@ -379,13 +379,15 @@ $('.box_foods_index').on('click', '.cancel-food', function(event){
 //kiểm tra có thêm gì vào giỏ hàng không
 $('body').on('click', '.enter_cart', function(event){
   var self = $(this);
-
   if(self.parents('.cart').find('.food_of_order').length == 0){
-    $('body').prepend('\
+    $('body .cart').prepend('\
     <div class="col-md-12 alert alert-danger">\
-      <li>Bạn chưa chọn thức ăn vào giỏ hàng</li>\
+      <li>Chọn thức ăn vào giỏ hàng</li>\
     </div>\
     ');
+    setTimeout(function(){
+      $('body .cart .alert').remove();
+    },3000);
     event.preventDefault();
     return false;
   }else{

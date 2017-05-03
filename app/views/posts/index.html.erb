@@ -9,7 +9,7 @@
             <span>Thoải mái để chọn nhà hàng và món ăn mình muốn.</span>
             <div class="button-index">
               <a class="btn " href="<%=new_user_path%>">Đăng ký</a>
-              <a class="btn btn-primary" href="#about-us">Đăng nhập</a>
+              <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
             </div>
           </div>
 
@@ -22,7 +22,7 @@
             <span>Hảy đến với chúng tôi để tận hưởng những điều tuyệt vời nhất.</span>
             <div class="button-index">
               <a class="btn btn-primary" href="<%=new_user_path%>">Đăng ký</a>
-              <a class="btn btn-primary"href="#about-us">Đăng nhập</a>
+              <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@
               </div>
             <%end%>
           <%end%>
-          <h3> <%= image_tag post.user.avatar.url(:avatar), class: " avatar_post" %> <span class="text-primary text-strong"><%= post.user.name%></span> <span href="<%= post_path(post)%>" > <%= post.title %></span></h3>
+          <h3> <%= image_tag post.user.avatar.url(:big), class: " avatar_post" %> <span class="text-primary text-strong"><%= post.user.name%></span> <span href="<%= post_path(post)%>" > <%= post.title %></span></h3>
           <p class="text-muted"> <%= post.created_at.strftime("at %I:%M%p %d/%m/%Y")%></p>
           <div class="margin_bottom_10">
             <%= post.content %>

@@ -44,7 +44,7 @@
           <% @foods.each do |food|%>
           <div class="col-md-4  ">
             <div class=" box_foods_index box_foods_index<%=food.id%>">
-              <%= image_tag food.image.url(:small), class: "picture_list_foods" %>
+              <%= image_tag food.image.url(:big), class: "picture_list_foods" %>
               <h3 class="text-center text-primary"><%=food.name%></h3>
               <h4 class="text-center">Giá: <%=food.price%></h4>
               <div class="text-center btn-choose-food">
