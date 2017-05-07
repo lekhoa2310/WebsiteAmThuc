@@ -1,7 +1,13 @@
 class SessionsController < ApplicationController
 
   def new
-    session[:referer_url] = URI(request.referer).path
+
+    if request.referer
+
+      session[:referer_url] = URI(request.referer).path
+    else
+      session[:referer_url] = posts_path
+    end
 
     if @current_user
       @user = User.find_by id: @current_user.id
@@ -31,6 +37,7 @@ class SessionsController < ApplicationController
           redirect_to posts_path
         end
       else
+        flash[:success] = "Đăng nhập thành công"
         redirect_to my_path
       end
     else

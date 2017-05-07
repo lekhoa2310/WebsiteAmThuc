@@ -43,9 +43,11 @@
       <td><%= restaurant.address %>, <%= restaurant.district.name %>, <%=restaurant.district.city.name%></td>
       <td><%= restaurant.created_at.strftime("%H:%M %d/%m/%Y") %></td>
       <td>
-        <a href="<%= dashboard_restaurant_foods_path(restaurant) %>"  class="btn btn-primary">Quản lý</a>
-        <a href="<%= edit_dashboard_restaurant_path(restaurant) %>"  class="btn btn-warning">Sửa</a>
-        <a href ="<%= dashboard_restaurant_path(restaurant) %>" data-method="delete" data-target="<%= restaurant.id %>" class="btn btn-danger delete-restaurant" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+        <div class="btn-group">
+          <a href="<%= dashboard_restaurant_foods_path(restaurant) %>"  class="btn btn-primary ">Quản lý</a>
+          <a href="<%= edit_dashboard_restaurant_path(restaurant) %>"  class="btn btn-warning ">Sửa</a>
+          <a href ="<%= dashboard_restaurant_path(restaurant) %>" data-method="delete" data-target="<%= restaurant.id %>" class="btn btn-danger delete-restaurant " data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+        <div>
       </td>
     </tr>
 

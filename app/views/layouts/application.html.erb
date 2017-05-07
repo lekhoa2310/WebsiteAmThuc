@@ -7,44 +7,33 @@
   </head>
 
   <body>
-
-        <%= render "partils/header" %>
-        <% if current_page?(posts_path) %>
-          <% if flash[:error] %>
-            <div class="col-md-12 alert-danger alert margin_top_70">
-            <li><%= flash[:error] %></li>
-          </div>
-          <% end %>
-        <%else%>
-          <% if flash[:error] %>
-            <div class="col-md-12 alert-danger alert ">
-            <li><%= flash[:error] %></li>
-          </div>
-          <% end %>
-        <%end%>
-
-        <% if current_page?(posts_path) %>
-          <% if flash[:success] %>
-            <div class="col-md-12 alert-success alert margin_top_70">
-            <li><%= flash[:success]  %></li>
-            </div>
-          <% end %>
-
-        <%else%>
-          <% if flash[:success] %>
-            <div class="col-md-12 alert-success alert ">
-            <li><%= flash[:success]  %></li>
-            </div>
-          <% end %>
-        <% end %>
-
-
-
+      <%= render "partils/header" %>
       <%= yield %>
-
 
     <script language="javascript" type="text/javascript"  > var current_user = '<%= @current_user ? @current_user.id : "" %>'</script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% if current_page?(posts_path) %>
+      <% if flash[:error] %>
+        <%= alertify_flash %>
+      </div>
+      <% end %>
+    <%else%>
+      <% if flash[:error] %>
+          <%= alertify_flash %>
+      </div>
+      <% end %>
+    <%end%>
+
+    <% if current_page?(posts_path) %>
+      <% if flash[:success] %>
+        <%= alertify_flash %>
+      <% end %>
+
+    <%else%>
+      <% if flash[:success] %>
+        <%= alertify_flash %>
+      <% end %>
+    <% end %>
   </body>
 
 </html>

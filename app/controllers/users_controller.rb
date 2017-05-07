@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       if  @user.save
         # flash[:success] = "Registration successfully"
         flash[:success] = "Đăng ký thành công"
-        
+
         redirect_to login_path
       else
         render :new
@@ -60,8 +60,7 @@ class UsersController < ApplicationController
             @user.update(password: Digest::MD5::hexdigest(params[:new_password]))
             # flash[:success] = "Your password was change successfully"
             flash[:success] = "Mật khẩu của bạn đã được thay đổi thành công"
-            session[:user_id]=nil
-            redirect_to login_path
+            redirect_to posts_path
           else
             # flash[:error] = "Confirm password  doesn't match New password"
             flash[:error] = "Mật khẩu mới và xác nhận mật khẩu  không trùng khớp"

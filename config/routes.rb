@@ -129,7 +129,9 @@ Rails.application.routes.draw do
     collection do
       get :find_post
       get :contact
+      post :create_contact
     end
+
   end
   # resources :comments
   resources :restaurants do

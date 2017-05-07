@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :check_user, except: [:index, :show, :find_post]
+  before_action :check_user, except: [:index, :show, :contact, :create_contact, :find_post]
   before_action :find_post_by_id, only: [:edit, :update, :show, :destroy, :like]
   def index
 
@@ -70,6 +70,25 @@ class PostsController < ApplicationController
 
   def contact
 
+  end
+
+  def create_contact
+    name = params[:name]
+    email = params[:email]
+    subject = params[:subject]
+    content = params[:content]
+    if @current_user
+      user = @current_user.id
+    else
+      user = "chưa đăng ký"
+    end
+    if ExampleMailer.contact_email(user ,name, email, subject, content).deliver_now
+      flash[:success] = 'Gửi liên hệ thành công'
+      redirect_to contact_posts_path
+    else
+      flash[:error] = 'Gửi liên hệ thất bại'
+      render :contact
+    end
   end
 
   # def like

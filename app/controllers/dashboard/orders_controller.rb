@@ -42,7 +42,7 @@ class Dashboard::OrdersController < Dashboard::BaseController
     @order = Order.find_by_id params[:id]
     redirect_to posts_path if @order.restaurant.user_id != @current_user.id
     if @order.update_attributes(actived: 3)
-      flash[:success] = "Đơn hàng hủy thành công."
+      flash[:success] = "Hủy đơn hàng thành công."
       redirect_to orders_cancel_dashboard_restaurant_orders_path
     else
       flash[:error] = "Đơn hàng chưa hoàn tất."
@@ -85,7 +85,7 @@ class Dashboard::OrdersController < Dashboard::BaseController
     @order = Order.find_by_id params[:id]
     redirect_to posts_path if @order.user.id != @current_user.id
     if @order.update_attributes(actived: 3)
-      flash[:success] = "Đơn hàng hủy thành công."
+      flash[:success] = "Hủy đơn hàng thành công."
       redirect_to orders_cancel_user_dashboard_orders_path
     else
       flash[:error] = "Đơn hàng chưa hoàn tất."

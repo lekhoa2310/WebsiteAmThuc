@@ -14,16 +14,17 @@
       <div >
         <div class="row">
           <div class="col-sm-6">
-            <form  class="contact-form" action="#">
+            <form  class="contact-form" action="<%=create_contact_posts_path%>" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <div class="row" >
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Tên" required="required">
+                    <input type="text" name="name" class="form-control" <% if @current_user%> value="<%=@current_user.name%>" <%end%> placeholder="Tên" required="required">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required="required">
+                    <input type="email" name="email" class="form-control" <% if @current_user%> value="<%=@current_user.email%>" <%end%>  placeholder="Email" required="required">
                   </div>
                 </div>
               </div>
@@ -31,10 +32,10 @@
                 <input type="text" name="subject" class="form-control" placeholder="Chủ đề" required="required">
               </div>
               <div class="form-group">
-                <textarea name="message" id="message" class="form-control" rows="4" placeholder="Nội dung" required="required"></textarea>
+                <textarea name="content" id="content" class="form-control" rows="4" placeholder="Nội dung" required="required"></textarea>
               </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-primary ">Gửi</button>
+                <button type="submit" class="btn btn-primary col-md-12 ">Gửi</button>
               </div>
             </form>
           </div>

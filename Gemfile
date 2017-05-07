@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#alert
+gem 'alertifyjs-rails'
 #awesome_icon
 gem "font-awesome-rails"
 # upload ảnh

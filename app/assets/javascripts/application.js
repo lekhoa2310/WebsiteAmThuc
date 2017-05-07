@@ -14,4 +14,5 @@
 //= require jquery_ujs
 
 //= require bootstrap-datepicker
+//= require alertify
 //= require_tree .

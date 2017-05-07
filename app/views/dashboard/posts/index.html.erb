@@ -41,9 +41,11 @@
         <td><%= post.comments.count %></td>
         <td><%= post.created_at.strftime("%H:%M %d/%m/%Y") %></td>
         <td>
-          <a href="<%= post_path(post)%>" class="btn btn-primary">Xem</a>
-          <a href="<%= edit_dashboard_post_path(post)%>" class="btn btn-warning">Sửa</a>
-          <a href ="<%= dashboard_post_path(post) %>" data-method="delete" data-target="<%= post.id %>" class="btn btn-danger delete-post" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+          <div class="btn-group">
+            <a href="<%= post_path(post)%>" class="btn btn-primary ">Xem</a>
+            <a href="<%= edit_dashboard_post_path(post)%>" class="btn btn-warning ">Sửa</a>
+            <a href ="<%= dashboard_post_path(post) %>" data-method="delete" data-target="<%= post.id %>" class="btn btn-danger delete-post" data-confirm="Bạn chắc chắn muốn xóa?">Xóa</a>
+          <div>
         </td>
       </tr>
 
