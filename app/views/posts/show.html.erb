@@ -6,7 +6,8 @@
       <%if @current_user.id == @post.user_id%>
         <div class="dropdown option">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           <i class="glyphicon glyphicon-pencil"></i>
+           <i class="glyphicon glyphicon-pencil "></i>
+           <!-- glyphicon glyphicon-th-list -->
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <!-- <li><a class="dropdown-item" href="#">Xem</a></li> -->
@@ -63,14 +64,14 @@
           <% @post.comments.each do |comment| %>
           <div class="comment-item row ">
             <li class="box-comment  col-md-12 margin_top_20 row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                   <span class="text-primary text-strong"> <%= image_tag comment.user.avatar.url(:avatar), class: " avatar_picture" %> <%= comment.user.name %>:</span> <%= comment.content %>
                   <div class=" col-md-12  box-replies">
                     <a class="reply-comment" data-target="<%=comment.id%>" >Hiện <span class="count-replies"> <%= reply = Comment.where(comment_id: comment.id).count%> </span>trả lời</a>
                     <div class="replies"></div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                 <% if @current_user%>
                   <%if @current_user.id == comment.user.id%>
                     <span data-target="<%= comment.id %>" class="text-danger delete-comment"  >x</span>

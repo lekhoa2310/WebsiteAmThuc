@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
     if @last_review.nil?
 
     else
-      if @last_review.order('created_at desc').first.created_at > Time.now - 1.days
+      if  Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).order('created_at desc').first.created_at > Time.now - 1.days
         flash[:error] = "Hôm nay bạn đã đánh giá cho cửa hàng #{@restaurant.name}"
         redirect_to restaurant_reviews_path(@restaurant)
       else
@@ -46,8 +46,17 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    @restaurant = Restaurant.find_by_id params[:restaurant_id]
     @review = Review.find_by_id params[:id]
     if @review.destroy
+      @reviews = @restaurant.reviews
+      average = 0
+      total_review = 0
+      @reviews.each do |review|
+        total_review += review.rating
+      end
+      average = total_review / @reviews.length
+      @restaurant.update_attributes(rating: average)
       flash[:success]="Xóa đánh giá thành công"
       redirect_to restaurant_reviews_path
     else

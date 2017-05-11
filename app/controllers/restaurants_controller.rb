@@ -86,6 +86,10 @@ class RestaurantsController < ApplicationController
     redirect_to login_path if !@current_user
     @restaurant = Restaurant.find_by_id params[:id]
     @total = 10000
+    session[:cart][@restaurant.id].each do |f|
+      @total +=  f["quantity"] * f["price"]
+    end
+
     # session[:cart][@restaurant.id].each do |f|
     #   @total += (f['quantity'] * f['price'] )
     # end

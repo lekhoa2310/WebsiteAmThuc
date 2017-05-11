@@ -1,13 +1,13 @@
 <div class="comment-item  row ">
   <li class="box-comment col-md-12 margin_top_20 row ">
-    <div class=" col-md-6">
+    <div class=" col-md-9">
       <span class="text-primary text-strong"><%= image_tag @current_user.avatar.url(:avatar), class: " avatar_picture" %> <%= @current_user.name %>: </span> <%= @comment.content %>
       <div class=" col-md-12 box-replies">
         <a class="reply-comment" data-target="<%= @comment.id%>" >trả lời</a>
         <div class="replies"></div>
       </div>
     </div>
-    <div class=" col-md-6 ">
+    <div class=" col-md-3">
       <span data-target = "<%= @comment.id%>" class="text-danger delete-comment">x</span>
      </div>
   </li>

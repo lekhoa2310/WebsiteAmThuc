@@ -43,6 +43,11 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :notifications, only: [] do
+        collection do
+          get :check_notification
+        end
+      end
       # resources :reviews, only: [] do
       #   member do
       #     delete :destroy_review

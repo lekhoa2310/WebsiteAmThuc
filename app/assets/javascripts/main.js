@@ -6,6 +6,35 @@ $(document).ready(function () {
      format: "yyyy-mm-dd"
    });
 
+   check_notication();
+   setInterval(function(){ check_notication(); }, 10000);
+
+   function check_notication() {
+    $.ajax({
+      url: "/api/v1/notifications/check_notification",
+      type: "GET",
+      success: function(res){
+         var noti = res.data.noti;
+         var noti_user = res.data.noti_user;
+         var noti_restaurant = res.data.noti_restaurant;
+         var restaurant_hash = res.data.restaurant_hash;
+         if (noti != 0) {
+           $('.notification').find('.number_notification').remove();
+           $('.notification').append('<span class="number_notification">'+noti+'</span>');
+           $('.notification_ul').find('li').remove();
+
+           if(noti_user != 0){
+             $('.notification_ul').append('<li> <a href="/dashboard/orders/orders_shipping_user">'+ noti_user +' đơn hàng được chấp nhận</a> </li>');
+           }
+           if(noti_restaurant != 0){
+             for (var i = 0; i < restaurant_hash.length; i++) {
+               $('.notification_ul').append('<li> <a href="/dashboard/restaurants/'+restaurant_hash[i].id+'/orders/orders_pending"> '+ restaurant_hash[i].name +' có '+restaurant_hash[i].num +' đặt hàng</a> </li>');
+             }
+           }
+         }
+      }
+    });
+  };
 
    setTimeout(function(){
       $('body .alert').remove();
