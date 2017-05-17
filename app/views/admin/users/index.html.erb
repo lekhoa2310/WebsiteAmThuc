@@ -23,6 +23,7 @@
 <table class="table table-hover table-bordered" >
   <tr style="background: pink">
     <th>STT</th>
+    <th>Loại user</th>
     <th>Email</th>
     <th>Tên</th>
     <th>Số điện thoại</th>
@@ -33,6 +34,15 @@
   <% @users.each_with_index do |user,index| %>
   <tr class="box-user">
     <td><%= index + 1 + (@page-1)*3  %></td>
+    <%if user.role == 0%>
+      <td>Khách hàng</td>
+    <%else
+      if user.role == 1%>
+        <td>Chủ cửa hàng</td>
+      <%else%>
+        <td>Quản trị viên</td>
+      <%end%>
+    <%end%>
     <td><%= user.email %></td>
     <td><%= user.name %></td>
     <td><%= user.phone %></td>

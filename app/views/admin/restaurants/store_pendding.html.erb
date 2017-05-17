@@ -43,7 +43,8 @@
       <td><%= restaurant.created_at.strftime("%H:%M %d/%m/%Y") %></td>
       <td>
         <a href="<%= admin_restaurant_path(restaurant) %>"  class="btn btn-primary">Xem</a>
-        <a href="<%= admin_restaurant_path(restaurant) %> " data-method ="patch"  class="btn btn-warning">Duyệt</a>
+        <a href="<%= admin_restaurant_path(restaurant) %>" data-method ="patch"  data-confirm="Bạn có muốn duyệt không" class="btn btn-warning">Duyệt</a>
+        <a href="<%= admin_restaurant_path(restaurant) %>" data-method ="delete" data-confirm="Bạn có muốn xóa không" class="btn btn-danger" >Xóa</a>
       </td>
     </tr>
 

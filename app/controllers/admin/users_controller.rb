@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::BaseController
   def index
 
     @page = 1
-    @users = User.paginate(:page => params[:page], :per_page => 3)
+    @users = User.paginate(:page => params[:page], :per_page => 10)
     @page =  params[:page].to_i if params[:page].present?
 
   end
@@ -11,7 +11,7 @@ class Admin::UsersController < Admin::BaseController
   def find_user
     @page = 1
     user_name = params[:user_name]
-    @users = User.where("name like ?", "%#{user_name}%").paginate(:page => params[:page], :per_page => 3)
+    @users = User.where("name like ?", "%#{user_name}%").paginate(:page => params[:page], :per_page => 10)
     @page =  params[:page].to_i if params[:page].present?
     if @users.first.nil?
       flash[:error] = "Không tìm thấy tài khoản "

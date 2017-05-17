@@ -11,17 +11,23 @@ class ReviewsController < ApplicationController
 
     redirect_to login_path if !@current_user
     @restaurant = Restaurant.find_by_id params[:restaurant_id]
-    @last_review = Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).first
-    if @last_review.nil?
-
+    if @restaurant.user.id == @current_user.id
+      flash[:error] = "Bạn không thể đánh giá cửa hàng của bạn."
+      redirect_to restaurant_reviews_path(@restaurant)
     else
-      if  Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).order('created_at desc').first.created_at > Time.now - 1.days
-        flash[:error] = "Hôm nay bạn đã đánh giá cho cửa hàng #{@restaurant.name}"
-        redirect_to restaurant_reviews_path(@restaurant)
-      else
+      @last_review = Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).first
+      if @last_review.nil?
 
+      else
+        if  Review.where('(user_id = ? AND restaurant_id = ? )', @current_user.id , @restaurant.id).order('created_at desc').first.created_at > Time.now - 1.days
+          flash[:error] = "Hôm nay bạn đã đánh giá cho cửa hàng #{@restaurant.name}"
+          redirect_to restaurant_reviews_path(@restaurant)
+        else
+
+        end
       end
     end
+
   end
 
   def create

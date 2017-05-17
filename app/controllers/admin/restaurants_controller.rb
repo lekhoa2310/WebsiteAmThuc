@@ -2,13 +2,13 @@ class Admin::RestaurantsController < Admin::BaseController
 
   def index
     @page = 1
-    @restaurants = Restaurant.order('created_at desc').where(actived: 1).paginate(:page => params[:page], :per_page => 3)
+    @restaurants = Restaurant.order('created_at desc').where(actived: 1).paginate(:page => params[:page], :per_page => 10)
     @page =  params[:page].to_i if params[:page].present?
   end
 
   def store_pendding
     @page = 1
-    @restaurants = Restaurant.order('created_at desc').where(actived: 0).all.paginate(:page => params[:page], :per_page => 3)
+    @restaurants = Restaurant.order('created_at desc').where(actived: 0).all.paginate(:page => params[:page], :per_page => 10)
     @page =  params[:page].to_i if params[:page].present?
   end
 
@@ -16,7 +16,7 @@ class Admin::RestaurantsController < Admin::BaseController
     @page = 1
     restaurant_name = params[:restaurant_name]
     result = Restaurant.where(:actived => 1)
-    @restaurants = result.where("name like ?", "%#{restaurant_name}%").paginate(:page => params[:page], :per_page => 3)
+    @restaurants = result.where("name like ?", "%#{restaurant_name}%").paginate(:page => params[:page], :per_page => 10)
     @page =  params[:page].to_i if params[:page].present?
 
     if @restaurants.first.nil?
@@ -32,6 +32,7 @@ class Admin::RestaurantsController < Admin::BaseController
   def update
     @restaurant = Restaurant.find_by_id params[:id]
     if @restaurant.update_attributes(actived: 1)
+      @restaurant.user.update_attributes(role: 1)
       flash[:success] = "Bạn đã duyệt cho cửa hàng #{@restaurant.name} thành công"
       redirect_to admin_restaurants_path
     else
@@ -40,5 +41,15 @@ class Admin::RestaurantsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @restaurant = Restaurant.find_by_id params[:id]
+    if @restaurant.destroy
+      flash[:success] = "Đã xóa cửa hàng thành công"
+      redirect_to admin_restaurants_store_pendding_path
+    else
+      flash[:error] = "Xóa cửa hàng thất bại"
+      redirect_to admin_restaurants_store_pendding_path
+    end
+  end
 
 end

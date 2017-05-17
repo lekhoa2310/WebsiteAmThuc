@@ -7,10 +7,13 @@
           <div class="carousel-caption">
             <p>Ẩm thực 3 miền</p>
             <span>Thoải mái để chọn nhà hàng và món ăn mình muốn.</span>
-            <div class="button-index">
-              <a class="btn " href="<%=new_user_path%>">Đăng ký</a>
-              <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
-            </div>
+            <% if @current_user.blank?%>
+              <div class="button-index">
+                <a class="btn " href="<%=new_user_path%>">Đăng ký</a>
+                <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
+              </div>
+            <%end%>
+
           </div>
 
         </div>
@@ -20,10 +23,12 @@
           <div class="carousel-caption">
             <p>Ẩm thực 3 miền</p>
             <span>Hảy đến với chúng tôi để tận hưởng những điều tuyệt vời nhất.</span>
-            <div class="button-index">
-              <a class="btn btn-primary" href="<%=new_user_path%>">Đăng ký</a>
-              <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
-            </div>
+            <% if @current_user.blank?%>
+              <div class="button-index">
+                <a class="btn " href="<%=new_user_path%>">Đăng ký</a>
+                <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
+              </div>
+            <%end%>
           </div>
         </div>
 
@@ -32,10 +37,12 @@
           <div class="carousel-caption">
             <p>Ẩm thực 3 miền</p>
             <span>Hảy nhanh tay đăng ký để tận hưởng ứng dụng tuyệt vời của chúng tôi</span>
-            <div class="button-index">
-              <a class="btn btn-primary" href="<%=new_user_path%>">Đăng ký</a>
-              <a class="btn btn-primary"href="<%=login_path%>">Đăng nhập</a>
-            </div>
+            <% if @current_user.blank?%>
+              <div class="button-index">
+                <a class="btn " href="<%=new_user_path%>">Đăng ký</a>
+                <a class="btn btn-primary" href="<%=login_path%>">Đăng nhập</a>
+              </div>
+            <%end%>
           </div>
         </div>
       </div>

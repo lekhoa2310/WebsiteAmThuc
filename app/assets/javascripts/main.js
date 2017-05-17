@@ -14,6 +14,14 @@ $(document).ready(function () {
       url: "/api/v1/notifications/check_notification",
       type: "GET",
       success: function(res){
+        if (res.data.noti == "admin") {
+          if (noti != 0) {
+            $('.notification').find('.number_notification').remove();
+            $('.notification').append('<span class="number_notification">'+res.data.noti_admin+'</span>');
+            $('.notification_ul').find('li').remove();
+            $('.notification_ul').append('<li> <a href="/admin/restaurants/store_pendding"> có '+res.data.noti_admin +' nhà hàng đăng ký</a> </li>');
+          }
+        }else{
          var noti = res.data.noti;
          var noti_user = res.data.noti_user;
          var noti_restaurant = res.data.noti_restaurant;
@@ -32,6 +40,7 @@ $(document).ready(function () {
              }
            }
          }
+       }
       }
     });
   };
